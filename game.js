@@ -134,10 +134,10 @@ function enemySprite() {
     //Enemies
     for (i = 0; i < numberOfEnemiesLeft; i++) {
         enemyLeft = new Sprite(0, random(50, 450), 10, 'k');
-        enemy.color = '#d908ec';
-        enemy.strokeWeight = 0;
-        enemy.x = 10;
-        enemyGroup.add(enemy);
+        enemyLeft.color = '#d908ec';
+        enemyLeft.strokeWeight = 0;
+        enemyLeft.x = 10;
+        enemyGroup.add(enemyLeft);
     };
 
 }
