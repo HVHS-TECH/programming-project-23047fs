@@ -136,7 +136,7 @@ function enemySprite() {
         enemyLeft = new Sprite(0, random(50, 450), 10, 'k');
         enemy.color = '#d908ec';
         enemy.strokeWeight = 0;
-        enemey.x = 10;
+        enemy.x = 10;
         enemyGroup.add(enemy);
     };
 
