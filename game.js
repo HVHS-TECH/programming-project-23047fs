@@ -248,7 +248,7 @@ function enemyFunction() {
     }
 
     //If the enemy goes off screen it respawns
-    if (enemyLeft.x >= 499) {
+    if (enemyGroup[i].x >= 499) {
     enemyLeft.x = enemyLeft.x - 400;
     console.log("Enemy startover");
     }
