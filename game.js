@@ -26,6 +26,7 @@ function setup() {
     screenPhase = 0;
     screenPhaseSetup = false;
     numberOfEnemiesLeft = 10;
+    playerScore = 0;
 
     //Groups
     //Group that has 'k' physics but doesn't allow the player to jump on. Eg walls
@@ -140,8 +141,8 @@ function enemySprite() {
         enemyLeft.strokeWeight = 0;
         enemyLeft.vel.x = random(2, 6);
         enemyGroup.add(enemyLeft);
+        numberOfEnemiesLeft = numberOfEnemiesLeft - 1
     };
-
 }
 
 function deleteEnemySprite() {
@@ -163,7 +164,7 @@ function draw() {
     if (screenPhase == 0) {
         //Start screen
         text("Start Game", 210, 200);
-        text("Controls: W,A,S,D to move, ", 210, 200);
+        text("Controls: W,A,S,D to move, ", 210, 220);
         startButtonFunction();
 
     } else if (screenPhase == 1) {
@@ -175,6 +176,7 @@ function draw() {
         }
 
         //Game screen
+        text("E " + round(enemyLeft.x), 20, 60);
         keyboardMovement();
         enemyFunction();
 
@@ -197,7 +199,8 @@ function draw() {
         }
 
         //Win screen
-        
+        text("Wow you have won the game", 210, 200);
+        text("You have scored: " , 210, 220);
     };
 }
 
@@ -243,7 +246,10 @@ function enemyFunction() {
         screenPhase = 2;
         screenPhaseSetup = true;
     }
-
+    if (enemyLeft.x >= 499) {
+    enemyLeft.x = enemyLeft.x - 400;
+    console.log("Enemy startover");
+    }
 
 }
 
