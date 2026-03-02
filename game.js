@@ -15,6 +15,7 @@ function setup() {
 	//Setup
 	console.log("Project Game");
 	cnv = new Canvas(500, 500);
+    //Center of canvas is 250, 250
     world.gravity.y = 20;
 
     //Constants
@@ -41,6 +42,7 @@ function setup() {
 
 }
 
+//Set up / sprite creation for screen phases
 function setupPhases() {
     if (screenPhase == 0) {
         //Start screen
@@ -81,8 +83,8 @@ function setupPhases() {
 
 function startButtonSprite() {
     //Start Button
-    startButton = new Sprite(250, 250, 75, 25, 'n');
-	startButton.color = '#24b5c2';
+    startButton = new Sprite(250, 250, 80, 30, 'n');
+	startButton.color = '#3ceb07';
 }
 
 function deleteStartButtonSprite() {
@@ -136,7 +138,7 @@ function enemySprite() {
         enemyLeft = new Sprite(0, random(50, 450), 10, 'k');
         enemyLeft.color = '#d908ec';
         enemyLeft.strokeWeight = 0;
-        enemyLeft.vel.x = 10;
+        enemyLeft.vel.x = random(2, 6);
         enemyGroup.add(enemyLeft);
     };
 
@@ -156,9 +158,12 @@ function draw() {
 	text("Mouse X " + round(mouse.x), 20, 20);
 	text("Mouse Y " + round(mouse.y), 20, 40);
 
+    //Screen Phases
+    //What happens when the screen phases switch, what is deleted, what functions are drawn
     if (screenPhase == 0) {
         //Start screen
-        text("Start Game", 220, 255);
+        text("Start Game", 210, 200);
+        text("Controls: W,A,S,D to move, ", 210, 200);
         startButtonFunction();
 
     } else if (screenPhase == 1) {
@@ -181,6 +186,8 @@ function draw() {
         }
 
         //Lose screen
+        text("You have lost the game", 210, 200);
+        text("You have scored: " , 210, 220);
         
     } else if (screenPhase == 3) {
         if (screenPhaseSetup == true) {
