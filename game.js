@@ -15,6 +15,7 @@
     let screenPhaseSetup = false;
     let numberOfEnemiesLeft = 10;
     let playerScore = 0;
+    let timer = 0;
 
 //Arrays
     //Enemy sprites x axis
