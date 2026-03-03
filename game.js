@@ -6,6 +6,27 @@
 /*******************************************************/
 // setup()
 /*******************************************************/
+
+//Constants
+
+//Variables
+    //Screen phase: 0 = Start screen, 1 = game screen, 2 = lose screen, 3 = win screen
+    let screenPhase = 0;
+    let screenPhaseSetup = false;
+    let numberOfEnemiesLeft = 10;
+    let playerScore = 0;
+
+//Arrays
+    //Enemy sprites x axis
+    let enemySpriteX = [];
+
+//Timers
+    //
+    let intervalID = setInterval(() => {
+        timer = timer + 1;
+    }, 1000); //1000 ms 
+
+
 function preload() {
 
 
@@ -18,25 +39,14 @@ function setup() {
     //Center of canvas is 250, 250
     world.gravity.y = 20;
 
-    //Constants
-
-
-    //Variables
-    //Screen phase: 0 = Start screen, 1 = game screen, 2 = lose screen, 3 = win screen
-    screenPhase = 0;
-    screenPhaseSetup = false;
-    numberOfEnemiesLeft = 10;
-    playerScore = 0;
-
     //Groups
     //Group that has 'k' physics but doesn't allow the player to jump on. Eg walls
-	floorGroup = new Group();
+    floorGroup = new Group();
     //Group that has 'k' physics and allows the player to jump on. Eg the floor
-	hitBoxGroup = new Group();
+    hitBoxGroup = new Group();
     //Group for enemy sprite
     enemyGroup = new Group();
 
-    //Arrays
 
     //Functions
     setupPhases();
@@ -140,6 +150,7 @@ function enemySprite() {
         enemyLeft.color = '#d908ec';
         enemyLeft.strokeWeight = 0;
         enemyLeft.vel.x = random(2, 6);
+        enemySpriteX.push(enemyLeft);
         enemyGroup.add(enemyLeft);
         numberOfEnemiesLeft = numberOfEnemiesLeft - 1
     };
@@ -246,11 +257,15 @@ function enemyFunction() {
         screenPhase = 2;
         screenPhaseSetup = true;
     }
-
+    
     //If the enemy goes off screen it respawns
-    if (enemyGroup[i].x >= 499) {
-    enemyLeft.x = enemyLeft.x - 400;
-    console.log("Enemy startover");
+    for (i = 0; i < enemySpriteX.length; i++) {
+        if (enemySpriteX[i].x >= 499) {
+            enemySpriteX[i].x = -10;
+            enemySpriteX[i].vel.x = random(2, 6);
+            enemySpriteX[i].y = random(50, 450);
+            console.log("Enemy startover");
+        }
     }
 
 }
