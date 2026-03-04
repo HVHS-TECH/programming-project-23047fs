@@ -345,7 +345,7 @@ function scoreBallFunction() {
     }
 
     for (i = 0; i < scoreBallSpriteArray.length; i++) {
-        if (scoreBallGroup.collides(player)) {
+        if (scoreBallSpriteArray[i].collides(player)) {
             scoreBallsCollected = scoreBallsCollected + 1;
             //Moves scoreball
             scoreBallSpriteArray[i].x = random(50, 450);
