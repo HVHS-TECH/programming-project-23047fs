@@ -21,8 +21,10 @@
     let timerSurvived = 0;
 
 //Arrays
-    //Enemy sprites x axis
+    //Enemy sprites
     let enemySpriteArray = [];
+    //Score balls
+    let scoreBallSpriteArray = [];
 
 //Timers
     //Second timer
@@ -184,6 +186,7 @@ function scoreBallSprite() {
         scoreBall = new Sprite(random(50, 450), random(50, 450), 10, 'k');
         scoreBall.color = '#d7ff26';
         scoreBall.strokeWeight = 0;
+        scoreBallSpriteArray.push(scoreBall);
         scoreBallGroup.add(scoreBall);
     }
 };
@@ -339,6 +342,15 @@ function scoreBallFunction() {
         //Moves scoreball
         scoreBall.x = random(50, 450);
         scoreBall.y = random(50, 450);
+    }
+
+    for (i = 0; i < scoreBallSpriteArray.length; i++) {
+        if (scoreBallGroup.collides(player)) {
+            scoreBallsCollected = scoreBallsCollected + 1;
+            //Moves scoreball
+            scoreBallSpriteArray[i].x = random(50, 450);
+            scoreBallSpriteArray[i].y = random(50, 450);
+        }
     }
 };
 
