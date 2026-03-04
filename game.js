@@ -170,7 +170,7 @@ function enemySprite() {
         enemyLeft = new Sprite(0, random(25, 475), 10, 'k');
         enemyLeft.color = '#d908ec';
         enemyLeft.strokeWeight = 0;
-        enemyLeft.vel.x = random(2, 6);
+        enemyLeft.vel.x = random(2, 5);
         enemySpriteArray.push(enemyLeft);
         enemyGroup.add(enemyLeft);
     };
@@ -309,7 +309,7 @@ function enemyFunction() {
     for (i = 0; i < enemySpriteArray.length; i++) {
         if (enemySpriteArray[i].x >= 499 && secondTimer <= 11) {
             enemySpriteArray[i].x = -10;
-            enemySpriteArray[i].vel.x = random(2, 6);
+            enemySpriteArray[i].vel.x = random(2, 5);
             enemySpriteArray[i].y = random(25, 475);
             console.log("Enemy reload");
         } else if (enemySpriteArray[i].x >= 499 && secondTimer >= 11) {
