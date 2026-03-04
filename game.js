@@ -14,18 +14,21 @@
     let screenPhase = 0;
     let screenPhaseSetup = false;
     let numberOfEnemiesLeft = 10;
+    let numberOfScoreBallsLeft = 2;
+    let scoreBallsCollected = 0;
     let playerScore = 0;
-    let timer = 0;
+    let secondTimer = 0;
+    let timerSurvived = 0;
 
 //Arrays
     //Enemy sprites x axis
-    let enemySpriteX = [];
+    let enemySpriteArray = [];
 
 //Timers
-    //
+    //Second timer
     let intervalID = setInterval(() => {
-        timer = timer + 1;
-    }, 1000); //1000 ms 
+        secondTimer = secondTimer + 1;
+    }, 1000); //1000 ms timer 
 
 
 function preload() {
@@ -47,6 +50,7 @@ function setup() {
     hitBoxGroup = new Group();
     //Group for enemy sprite
     enemyGroup = new Group();
+    scoreBallGroup = new Group();
 
 
     //Functions
@@ -69,13 +73,22 @@ function setupPhases() {
         playerSprite();
         wallSprite();
         enemySprite();
+        scoreBallSprite();
         console.log("Game Screen")
+
+        //Game timers
+        secondTimer = 0;
 
     } else if (screenPhase == 2) {
         //Delete previous sprites
         deletePlayerSprite();
         deleteWallSprite();
         deleteEnemySprite();
+        deleteScoreBallSprite();
+
+        //Set final score
+        timerSurvived = secondTimer;
+        playerScore = + scoreBallsCollected * secondTimer;
 
         //Lose screen
         console.log("Lose Screen")
@@ -85,6 +98,11 @@ function setupPhases() {
         deletePlayerSprite();
         deleteWallSprite();
         deleteEnemySprite();
+        deleteScoreBallSprite();
+        
+        //Set final score and time
+        timerSurvived = secondTimer;
+        playerScore = + scoreBallsCollected * secondTimer;
 
         //Win screen
         console.log("Win Screen")
@@ -147,20 +165,33 @@ function deleteWallSprite() {
 function enemySprite() {
     //Enemies
     for (i = 0; i < numberOfEnemiesLeft; i++) {
-        enemyLeft = new Sprite(0, random(50, 450), 10, 'k');
+        enemyLeft = new Sprite(0, random(25, 475), 10, 'k');
         enemyLeft.color = '#d908ec';
         enemyLeft.strokeWeight = 0;
         enemyLeft.vel.x = random(2, 6);
-        enemySpriteX.push(enemyLeft);
+        enemySpriteArray.push(enemyLeft);
         enemyGroup.add(enemyLeft);
-        numberOfEnemiesLeft = numberOfEnemiesLeft - 1
     };
 }
 
 function deleteEnemySprite() {
     enemyGroup.remove();
 }
-	
+
+function scoreBallSprite() {
+    //Score balls
+    for (i = 0; i < numberOfScoreBallsLeft; i++) {
+        scoreBall = new Sprite(random(50, 450), random(50, 450), 10, 'k');
+        scoreBall.color = '#d7ff26';
+        scoreBall.strokeWeight = 0;
+        scoreBallGroup.add(scoreBall);
+    }
+};
+
+function deleteScoreBallSprite() {
+    scoreBallGroup.remove();
+}
+
 /*******************************************************/
 // draw()
 /*******************************************************/
@@ -170,6 +201,8 @@ function draw() {
     //Visual Variables
 	text("Mouse X " + round(mouse.x), 20, 20);
 	text("Mouse Y " + round(mouse.y), 20, 40);
+	text("Timer " + secondTimer, 20, 60);
+	text("Score " + scoreBallsCollected, 20, 80);
 
     //Screen Phases
     //What happens when the screen phases switch, what is deleted, what functions are drawn
@@ -188,9 +221,10 @@ function draw() {
         }
 
         //Game screen
-        text("E " + round(enemyLeft.x), 20, 60);
         keyboardMovement();
         enemyFunction();
+        timerFunction();
+        scoreBallFunction();
 
     } else if (screenPhase == 2) {
         if (screenPhaseSetup == true) {
@@ -201,8 +235,10 @@ function draw() {
 
         //Lose screen
         text("You have lost the game", 210, 200);
-        text("You have scored: " , 210, 220);
-        
+        text("You survived: " + timerSurvived + " seconds", 210, 220);
+        text("You collected: " + scoreBallsCollected + " score balls", 210, 240);
+        text("You have scored: " + playerScore, 210, 260);    
+
     } else if (screenPhase == 3) {
         if (screenPhaseSetup == true) {
             //Setup
@@ -212,14 +248,16 @@ function draw() {
 
         //Win screen
         text("Wow you have won the game", 210, 200);
-        text("You have scored: " , 210, 220);
+        text("You survived: " + timerSurvived + " seconds", 210, 220);
+        text("You collected: " + scoreBallsCollected + " score balls", 210, 240);
+        text("You have scored: " + playerScore, 210, 260);  
     };
 }
 
 //Switching screens and screen phases
 function startButtonFunction() {
     //Start button
-    if (mouseX>width/2-startButton.w/2 && mouseX<width/2+startButton.w/2 && mouseY>height/2-startButton.h/2 && mouseY<height/2+startButton.h/2 && mouseIsPressed) {
+    if (mouseX > width/2 - startButton.w/2 && mouseX < width/2 + startButton.w/2 && mouseY > height/2 - startButton.h/2 && mouseY < height/2 + startButton.h/2 && mouseIsPressed) {
         screenPhase = 1
         screenPhaseSetup = true;
     };
@@ -259,17 +297,50 @@ function enemyFunction() {
         screenPhaseSetup = true;
     }
     
+    //Enemy Stages
+
+    //Stage 1
+    //Enemy balls only come from the left
+
     //If the enemy goes off screen it respawns
-    for (i = 0; i < enemySpriteX.length; i++) {
-        if (enemySpriteX[i].x >= 499) {
-            enemySpriteX[i].x = -10;
-            enemySpriteX[i].vel.x = random(2, 6);
-            enemySpriteX[i].y = random(50, 450);
-            console.log("Enemy startover");
+    for (i = 0; i < enemySpriteArray.length; i++) {
+        if (enemySpriteArray[i].x >= 499 && secondTimer <= 11) {
+            enemySpriteArray[i].x = -10;
+            enemySpriteArray[i].vel.x = random(2, 6);
+            enemySpriteArray[i].y = random(25, 475);
+            console.log("Enemy reload");
+        } else if (enemySpriteArray[i].x >= 499 && secondTimer >= 11) {
+            enemySpriteArray[i].remove();
+            console.log("Deleted enemy ball");
         }
     }
 
+    //Stage 2
+    //Enemy beams come down from above
+
+
+
 }
+
+//Timer funciton
+function timerFunction() {
+    //Timer runs out
+    if (secondTimer == 30) {
+        //Win Game
+        screenPhase = 3;
+        screenPhaseSetup = true;
+    }
+}
+
+function scoreBallFunction() {
+    //If player collects a score ball
+    if (scoreBallGroup.collides(player)) {
+        scoreBallsCollected = scoreBallsCollected + 1;
+        //Moves scoreball
+        scoreBall.x = random(50, 450);
+        scoreBall.y = random(50, 450);
+    }
+};
 
 /*******************************************************/
 //  END OF APP
