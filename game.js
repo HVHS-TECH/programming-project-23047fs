@@ -8,21 +8,34 @@
 /*******************************************************/
 
 //Constants
+    const canvaWidth = 500;
+    const canvaHeight = 500;
+    const numberOfEnemyBallsUp = 10;
+    const enemyBallDiameter = 10;
+    const minBallSpeed = 2;
+    const maxBallSpeed = 5;
+    const numberOfEnemyBeamsUp = 3;
+    const enemyBeamWidth = 45;
+    const minBeamSpeed = 2;
+    const maxBeamSpeed = 6;
+    const numberOfScoreBallsLeft = 4;
+    const playerJumpHeight = 9;
+    const playerSpeed = 4;
 
 //Variables
     //Screen phase: 0 = Start screen, 1 = game screen, 2 = lose screen, 3 = win screen
     let screenPhase = 0;
     let screenPhaseSetup = false;
-    let numberOfEnemiesLeft = 10;
-    let numberOfScoreBallsLeft = 2;
     let scoreBallsCollected = 0;
     let playerScore = 0;
     let secondTimer = 0;
     let timerSurvived = 0;
 
 //Arrays
-    //Enemy sprites
-    let enemySpriteArray = [];
+    //Enemy ball sprites
+    let enemyBallSpriteArray = [];
+    //Enemy beam sprites
+    let enemyBeamSpriteArray = [];
     //Score balls
     let scoreBallSpriteArray = [];
 
@@ -41,7 +54,7 @@ function preload() {
 function setup() {
 	//Setup
 	console.log("Project Game");
-	cnv = new Canvas(500, 500);
+	cnv = new Canvas(canvaWidth, canvaHeight);
     //Center of canvas is 250, 250
     world.gravity.y = 20;
 
@@ -136,23 +149,23 @@ function deletePlayerSprite() {
 
 function wallSprite() {
     //Walls
-	topWall = new Sprite(250, 0, 500, 10, 'k');
+	topWall = new Sprite(canvaWidth/2, 0, canvaHeight, 10, 'k');
 	topWall.color = '#a7f9ff';
     topWall.strokeWeight = 0;
     hitBoxGroup.add(topWall);
 
-    bottomWall = new Sprite(250, 500, 500, 10, 'k');
+    bottomWall = new Sprite(canvaWidth/2, canvaHeight, canvaHeight, 10, 'k');
 	bottomWall.color = '#a7f9ff';
     bottomWall.strokeWeight = 0;
     hitBoxGroup.add(bottomWall);
 
-    leftWall = new Sprite(0, 250, 500, 10, 'k');
+    leftWall = new Sprite(0, canvaHeight/2, canvaHeight, 10, 'k');
     leftWall.rotation = 90;
 	leftWall.color = '#a7f9ff';
     leftWall.strokeWeight = 0;
     hitBoxGroup.add(leftWall);
 
-    rightWall = new Sprite(500, 250, 500, 10, 'k');
+    rightWall = new Sprite(canvaWidth, canvaHeight/2, canvaHeight, 10, 'k');
     rightWall.rotation = 90;
 	rightWall.color = '#a7f9ff';
     rightWall.strokeWeight = 0;
@@ -165,14 +178,24 @@ function deleteWallSprite() {
 }
 
 function enemySprite() {
-    //Enemies
-    for (i = 0; i < numberOfEnemiesLeft; i++) {
-        enemyLeft = new Sprite(0, random(25, 475), 10, 'k');
-        enemyLeft.color = '#d908ec';
-        enemyLeft.strokeWeight = 0;
-        enemyLeft.vel.x = random(2, 5);
-        enemySpriteArray.push(enemyLeft);
-        enemyGroup.add(enemyLeft);
+    //Enemy balls
+    for (i = 0; i < numberOfEnemyBallsUp; i++) {
+        enemyBallUp = new Sprite(random(25, 475), 0, enemyBallDiameter, 'k');
+        enemyBallUp.color = '#d908ec';
+        enemyBallUp.strokeWeight = 0;
+        enemyBallUp.vel.y = random(minBallSpeed, maxBallSpeed);
+        enemyBallSpriteArray.push(enemyBallUp);
+        enemyGroup.add(enemyBallUp);
+    };
+
+    //Enemy Beams
+    for (i = 0; i < numberOfEnemyBeamsUp; i++) {
+        enemyBeamUp = new Sprite(random(0, 500), -260, enemyBeamWidth, canvaHeight - random(5, 20), 'k');
+        enemyBeamUp.color = '#ec0867';
+        enemyBeamUp.strokeWeight = 0;
+        enemyBeamUp.vel.y = 0;
+        enemyBeamSpriteArray.push(enemyBeamUp);
+        enemyGroup.add(enemyBeamUp);
     };
 }
 
@@ -273,21 +296,21 @@ function keyboardMovement() {
 	player.rotationSpeed = player.rotationSpeed/1.035;
 
 	//Left
-    if (kb.pressing('a')) {
+    if (kb.pressing('a') || kb.pressing('arrowLeft')) {
 		// Set sprite's velocity to the left
-		player.vel.x = -4;
+		player.vel.x = -1 * playerSpeed;
 	};
 
 	//Right
-    if (kb.pressing ('d')) {
+    if (kb.pressing ('d') || kb.pressing('arrowRight')) {
 		// Set sprite's velocity to the right
-		player.vel.x = 4;
+		player.vel.x = playerSpeed;
 	};
 
     //Jump
-    if (kb.pressing('w') && hitBoxGroup.colliding(player)) {
+    if (kb.pressing('w') && hitBoxGroup.colliding(player) || kb.pressing('arrowUp') && hitBoxGroup.colliding(player)) {
         // Set sprite's velocity to the up
-		player.vel.y = -10;
+		player.vel.y = -1 * playerJumpHeight;
     }
 }
 
@@ -306,14 +329,14 @@ function enemyFunction() {
     //Enemy balls only come from the left
 
     //If the enemy goes off screen it respawns
-    for (i = 0; i < enemySpriteArray.length; i++) {
-        if (enemySpriteArray[i].x >= 499 && secondTimer <= 11) {
-            enemySpriteArray[i].x = -10;
-            enemySpriteArray[i].vel.x = random(2, 5);
-            enemySpriteArray[i].y = random(25, 475);
-            console.log("Enemy reload");
-        } else if (enemySpriteArray[i].x >= 499 && secondTimer >= 11) {
-            enemySpriteArray[i].remove();
+    for (i = 0; i < enemyBallSpriteArray.length; i++) {
+        if (enemyBallSpriteArray[i].y >= 500 && secondTimer <= 11) {
+            enemyBallSpriteArray[i].y = random(-10, -1);
+            enemyBallSpriteArray[i].vel.y = random(minBallSpeed, maxBallSpeed);
+            enemyBallSpriteArray[i].x = random(25, 475);
+            console.log("Enemy ball reload");
+        } else if (enemyBallSpriteArray[i].x >= 499 && secondTimer >= 11) {
+            enemyBallSpriteArray[i].remove();
             console.log("Deleted enemy ball");
         }
     }
@@ -321,7 +344,20 @@ function enemyFunction() {
     //Stage 2
     //Enemy beams come down from above
 
-
+    for (i = 0; i < enemyBeamSpriteArray.length; i++) {
+        if (enemyBeamSpriteArray[i].vel.y == 0 && secondTimer >= 11 && secondTimer <= 21) {
+            enemyBeamSpriteArray[i].vel.y = random(minBeamSpeed, maxBeamSpeed);
+            console.log("Enemy beam started");
+        } else if (enemyBeamSpriteArray[i].y >= 760 && secondTimer >= 11 && secondTimer <= 21) {
+            enemyBeamSpriteArray[i].y = -770;
+            enemyBeamSpriteArray[i].vel.y = random(minBeamSpeed, maxBeamSpeed);
+            enemyBeamSpriteArray[i].x = random(5, 495);
+            console.log("Enemy beam reload");
+        } else if (enemyBeamSpriteArray[i].vel.y >= 1 && enemyBeamSpriteArray[i].y >= 760 && secondTimer >= 21) {
+            enemyBeamSpriteArray[i].remove();
+            console.log("Deleted enemy beam");
+        }
+    }
 
 }
 
