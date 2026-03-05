@@ -337,13 +337,6 @@ function timerFunction() {
 
 function scoreBallFunction() {
     //If player collects a score ball
-    if (scoreBallGroup.collides(player)) {
-        scoreBallsCollected = scoreBallsCollected + 1;
-        //Moves scoreball
-        scoreBall.x = random(50, 450);
-        scoreBall.y = random(50, 450);
-    }
-
     for (i = 0; i < scoreBallSpriteArray.length; i++) {
         if (scoreBallSpriteArray[i].collides(player)) {
             scoreBallsCollected = scoreBallsCollected + 1;
