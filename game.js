@@ -47,6 +47,8 @@
 
 
 function preload() {
+    //Loading the images for assets
+    imgSnowBall = loadImage('../assets/images/Snowball.png');
 
 
 }
@@ -181,7 +183,7 @@ function enemySprite() {
     //Enemy balls
     for (i = 0; i < numberOfEnemyBallsUp; i++) {
         enemyBallUp = new Sprite(random(25, 475), 0, enemyBallDiameter, 'k');
-        enemyBallUp.color = '#d908ec';
+	    enemyBallUp.image = (imgSnowBall);
         enemyBallUp.strokeWeight = 0;
         enemyBallUp.vel.y = random(minBallSpeed, maxBallSpeed);
         enemyBallSpriteArray.push(enemyBallUp);
