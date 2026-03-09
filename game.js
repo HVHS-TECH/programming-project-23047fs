@@ -10,8 +10,8 @@
 //Constants
     const canvaWidth = 500;
     const canvaHeight = 500;
-    const numberOfEnemyBallsUp = 10;
-    const enemyBallDiameter = 10;
+    const numberOfEnemyBallsUp = 5;
+    const enemyBallDiameter = 20;
     const minBallSpeed = 2;
     const maxBallSpeed = 5;
     const numberOfEnemyBeamsUp = 3;
@@ -19,6 +19,7 @@
     const minBeamSpeed = 2;
     const maxBeamSpeed = 6;
     const numberOfScoreBallsLeft = 4;
+    const scoreBallDiameter = 10;
     const playerJumpHeight = 9;
     const playerSpeed = 4;
 
@@ -49,7 +50,7 @@
 function preload() {
     //Loading the images for assets
     imgSnowBall = loadImage('../assets/images/Snowball.png');
-
+    imgSnowTide = loadImage('../assets/images/SnowballTide.png');
 
 }
 
@@ -184,6 +185,7 @@ function enemySprite() {
     for (i = 0; i < numberOfEnemyBallsUp; i++) {
         enemyBallUp = new Sprite(random(25, 475), 0, enemyBallDiameter, 'k');
 	    enemyBallUp.image = (imgSnowBall);
+        imgSnowBall.resize(enemyBallDiameter, enemyBallDiameter);
         enemyBallUp.strokeWeight = 0;
         enemyBallUp.vel.y = random(minBallSpeed, maxBallSpeed);
         enemyBallSpriteArray.push(enemyBallUp);
@@ -192,8 +194,9 @@ function enemySprite() {
 
     //Enemy Beams
     for (i = 0; i < numberOfEnemyBeamsUp; i++) {
-        enemyBeamUp = new Sprite(random(0, 500), -260, enemyBeamWidth, canvaHeight - random(5, 20), 'k');
-        enemyBeamUp.color = '#ec0867';
+        enemyBeamUp = new Sprite(random(0, 500), -260, enemyBeamWidth, canvaHeight + random(5, 20), 'k');
+        enemyBeamUp.image = (imgSnowTide);
+        imgSnowTide.resize(enemyBeamWidth, canvaHeight + random(5, 20));
         enemyBeamUp.strokeWeight = 0;
         enemyBeamUp.vel.y = 0;
         enemyBeamSpriteArray.push(enemyBeamUp);
