@@ -16,16 +16,17 @@
     const maxBallSpeed = 5;
     const numberOfEnemyBeamsUp = 3;
     const numberOfEnemiesInBeamsUp = 30;
-    const minBeamSpeed = 2;
-    const maxBeamSpeed = 6;
+    const minBeamSpeed = 3;
+    const maxBeamSpeed = 5;
     const numberOfScoreBallsLeft = 4;
     const scoreBallDiameter = 10;
     const playerJumpHeight = 9;
     const playerSpeed = 4;
+    const timeOver = 30;
 
 //Variables
-    //Screen phase: 0 = Start screen, 1 = game screen, 2 = lose screen, 3 = win screen
-    let screenPhase = 0;
+    //Screen phase: start = Start screen, game = game screen, lose = lose screen, win = win screen
+    let screenPhase = "start";
     let screenPhaseSetup = false;
     let scoreBallsCollected = 0;
     let playerScore = 0;
@@ -78,12 +79,12 @@ function setup() {
 
 //Set up / sprite creation for screen phases
 function setupPhases() {
-    if (screenPhase == 0) {
+    if (screenPhase == "start") {
         //Start screen
         startButtonSprite();
         console.log("Start Screen")
 
-    } else if (screenPhase == 1) {
+    } else if (screenPhase == "game") {
         //Delete previous sprites
         deleteStartButtonSprite();
 
@@ -97,7 +98,7 @@ function setupPhases() {
         //Game timers
         secondTimer = 0;
 
-    } else if (screenPhase == 2) {
+    } else if (screenPhase == "lose") {
         //Delete previous sprites
         deletePlayerSprite();
         deleteWallSprite();
@@ -111,7 +112,7 @@ function setupPhases() {
         //Lose screen
         console.log("Lose Screen")
         
-    } else if (screenPhase == 3) {
+    } else if (screenPhase == "win") {
         //Delete previous sprites
         deletePlayerSprite();
         deleteWallSprite();
@@ -194,7 +195,6 @@ function enemySprite() {
     //Improved enemy beams
     for (i = 0; i < numberOfEnemyBeamsUp; i++) {
         enemyBeamX = random(15, 475);
-        console.log("something");
         for (ii = 0; ii < numberOfEnemiesInBeamsUp; ii++) {
             enemyBeamUp = new Sprite(enemyBeamX + random(-5, 5), -40 - (ii + random(-20, 20)), enemyBallDiameter, 'k');
             enemyBeamUp.image = (imgSnowBall);
@@ -252,13 +252,13 @@ function draw() {
 
     //Screen Phases
     //What happens when the screen phases switch, what is deleted, what functions are drawn
-    if (screenPhase == 0) {
+    if (screenPhase == "start") {
         //Start screen
         text("Start Game", 210, 200);
         text("Controls: W,A,S,D to move, ", 210, 220);
         startButtonFunction();
 
-    } else if (screenPhase == 1) {
+    } else if (screenPhase == "game") {
         //One time setup of sprites
         if (screenPhaseSetup == true) {
             //Setup
@@ -269,10 +269,14 @@ function draw() {
         //Game screen
         keyboardMovement();
         enemyFunction();
+        //Stages
+        enemyStage1();
+        enemyStage2();
+        enemyStage3();
         timerFunction();
         scoreBallFunction();
 
-    } else if (screenPhase == 2) {
+    } else if (screenPhase == "lose") {
         if (screenPhaseSetup == true) {
             //Setup
             setupPhases();
@@ -285,7 +289,7 @@ function draw() {
         text("You collected: " + scoreBallsCollected + " score balls", 210, 240);
         text("You have scored: " + playerScore, 210, 260);    
 
-    } else if (screenPhase == 3) {
+    } else if (screenPhase == "win") {
         if (screenPhaseSetup == true) {
             //Setup
             setupPhases();
@@ -304,7 +308,7 @@ function draw() {
 function startButtonFunction() {
     //Start button
     if (mouseX > width/2 - startButton.w/2 && mouseX < width/2 + startButton.w/2 && mouseY > height/2 - startButton.h/2 && mouseY < height/2 + startButton.h/2 && mouseIsPressed) {
-        screenPhase = 1
+        screenPhase = "game"
         screenPhaseSetup = true;
     };
 }
@@ -339,48 +343,68 @@ function enemyFunction() {
     //Enemy collides with player
     if (enemyGroup.collides(player)) {
         //Lose Game
-        screenPhase = 2;
+        screenPhase = "lose";
         screenPhaseSetup = true;
-    }
-    
-    //Enemy Stages
-
-    //Stage 1
-    //Enemy balls only come from the left
-
-    //If the enemy goes off screen it respawns
-    for (i = 0; i < enemyBallSpriteArray.length; i++) {
-        if (enemyBallSpriteArray[i].y >= 500 && secondTimer <= 11) {
-            enemyBallSpriteArray[i].y = random(-10, -1);
-            enemyBallSpriteArray[i].vel.y = random(minBallSpeed, maxBallSpeed);
-            enemyBallSpriteArray[i].x = random(25, 475);
-            console.log("Enemy ball reload");
-        } else if (enemyBallSpriteArray[i].x >= 499 && secondTimer >= 11) {
-            enemyBallSpriteArray[i].remove();
-            console.log("Deleted enemy ball");
-        }
-    }
-
-    //Stage 2
-    //Enemy beams come down from above
-
-    for (i = 0; i < enemyBeamSpriteArray.length; i++) {
-        if (enemyBeamSpriteArray[i].vel.y == 0 && secondTimer >= 11 && secondTimer <= 21) {
-            enemyBeamSpriteArray[i].vel.y = random(minBeamSpeed, maxBeamSpeed);
-        } else if (enemyBeamSpriteArray[i].vel.y >= 1 && enemyBeamSpriteArray[i].y >= 500) {
-            enemyBeamSpriteArray[i].remove();
-            console.log("Deleted enemy beam");
-        }
     }
 
 }
 
+function enemyStage1() {
+    //Enemy balls only come from the left
+    if (secondTimer <= timeOver/3) {
+        //If the enemy goes off screen it respawns
+        for (i = 0; i < enemyBallSpriteArray.length; i++) {
+            if (enemyBallSpriteArray[i].y >= 500) {
+                enemyBallSpriteArray[i].y = random(-10, -1);
+                enemyBallSpriteArray[i].vel.y = random(minBallSpeed, maxBallSpeed);
+                enemyBallSpriteArray[i].x = random(25, 475);
+                console.log("Enemy ball reload");
+            }
+        }
+    } else if (secondTimer >= timeOver/3) {
+        //When time runs out
+        for (i = 0; i < enemyBallSpriteArray.length; i++) {
+            if (enemyBallSpriteArray[i].y >= 500) {
+                enemyBallSpriteArray[i].remove();
+                console.log("Deleted enemy ball");
+            }
+        }
+    }
+}
+
+function enemyStage2() {
+    //Enemy beams come down from above
+    if (secondTimer >= timeOver/3 && secondTimer <= (timeOver/3) * 2) {
+        //Beam enemies
+        for (i = 0; i < enemyBeamSpriteArray.length; i++) {
+            //Setting the speed
+            if (enemyBeamSpriteArray[i].vel.y == 0) {
+                enemyBeamSpriteArray[i].vel.y = random(minBeamSpeed, maxBeamSpeed);
+            } else if (enemyBeamSpriteArray[i].vel.y >= 1 && enemyBeamSpriteArray[i].y >= 500) {
+                //Deleting the beam enemy
+                enemyBeamSpriteArray[i].remove();
+                console.log("Deleted enemy beam");
+            }
+        }
+    }
+}
+
+/*
+function enemyStage3() {
+    //Idea??
+    if (secondTimer >= (timeOver/3) * 2 && secondTimer <= (timeOver/3) * 3) {
+
+    } else if (secondTimer >= 11) {
+
+    }
+} */
+
 //Timer funciton
 function timerFunction() {
     //Timer runs out
-    if (secondTimer == 30) {
+    if (secondTimer == timeOver) {
         //Win Game
-        screenPhase = 3;
+        screenPhase = "win";
         screenPhaseSetup = true;
     }
 }
