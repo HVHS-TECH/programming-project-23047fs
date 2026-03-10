@@ -182,7 +182,7 @@ function deleteWallSprite() {
 function enemySprite() {
     //Enemy balls
     for (i = 0; i < numberOfEnemyBallsUp; i++) {
-        enemyBallUp = new Sprite(random(25, 475), 0, enemyBallDiameter, 'k');
+        enemyBallUp = new Sprite(random(25, 475), random(-40, 0), enemyBallDiameter, 'k');
 	    enemyBallUp.image = (imgSnowBall);
         imgSnowBall.resize(enemyBallDiameter, enemyBallDiameter);
         enemyBallUp.strokeWeight = 0;
@@ -362,7 +362,7 @@ function enemyStage1() {
 
 function enemyStage2() {
     //Enemy beams come down from above
-    if (secondTimer >= timeOver/3 && secondTimer <= (timeOver/3) * 2) {
+    if (secondTimer >= (timeOver/3) + 2 && secondTimer <= (timeOver/3) * 2) {
         //Beam enemies
         for (i = 0; i < enemyBeamSpriteArray.length; i++) {
             //Setting the speed
