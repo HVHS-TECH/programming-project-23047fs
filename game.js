@@ -10,10 +10,10 @@
 //Constants
     const canvaWidth = 500;
     const canvaHeight = 500;
-    const numberOfEnemyBallsUp = 5;
+    const numberOfEnemyBallsUp = 15;
     const enemyBallDiameter = 20;
     const minBallSpeed = 2;
-    const maxBallSpeed = 5;
+    const maxBallSpeed = 4;
     const numberOfEnemyBeamsUp = 3;
     const numberOfEnemiesInBeamsUp = 30;
     const minBeamSpeed = 3;
