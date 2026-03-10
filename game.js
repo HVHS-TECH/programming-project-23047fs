@@ -52,7 +52,6 @@
 function preload() {
     //Loading the images for assets
     imgSnowBall = loadImage('../assets/images/Snowball.png');
-    imgSnowTide = loadImage('../assets/images/SnowballTide.png');
 
 }
 
@@ -206,17 +205,6 @@ function enemySprite() {
         };
     };
 
-    /*
-    //Enemy Beams
-    for (i = 0; i < numberOfEnemyBeamsUp; i++) {
-        enemyBeamUp = new Sprite(random(0, 500), -260, enemyBeamWidth, canvaHeight + random(5, 20), 'k');
-        enemyBeamUp.image = (imgSnowTide);
-        imgSnowTide.resize(enemyBeamWidth, canvaHeight + random(5, 20));
-        enemyBeamUp.strokeWeight = 0;
-        enemyBeamUp.vel.y = 0;
-        enemyBeamSpriteArray.push(enemyBeamUp);
-        enemyGroup.add(enemyBeamUp);
-    }; */
 }
 
 function deleteEnemySprite() {
