@@ -15,7 +15,7 @@
     const minBallSpeed = 2;
     const maxBallSpeed = 5;
     const numberOfEnemyBeamsUp = 3;
-    const enemyBeamWidth = 45;
+    const numberOfEnemiesInBeamsUp = 30;
     const minBeamSpeed = 2;
     const maxBeamSpeed = 6;
     const numberOfScoreBallsLeft = 4;
@@ -31,6 +31,7 @@
     let playerScore = 0;
     let secondTimer = 0;
     let timerSurvived = 0;
+    let enemyBeamX = 0;
 
 //Arrays
     //Enemy ball sprites
@@ -192,6 +193,21 @@ function enemySprite() {
         enemyGroup.add(enemyBallUp);
     };
 
+    //Improved enemy beams
+    for (i = 0; i < numberOfEnemyBeamsUp; i++) {
+        enemyBeamX = random(15, 475);
+        for (i = 0; i < numberOfEnemiesInBeamsUp; i++) {
+            enemyBeamUp = new Sprite(enemyBeamX + random(-5, 5), 0 - (i * random(1, 5)), enemyBallDiameter, 'k');
+            enemyBeamUp.image = (imgSnowBall);
+            imgSnowBall.resize(enemyBallDiameter, enemyBallDiameter);
+            enemyBeamUp.strokeWeight = 0;
+            enemyBeamUp.vel.y = 0;
+            enemyBeamSpriteArray.push(enemyBeamUp);
+            enemyGroup.add(enemyBeamUp);
+        };
+    };
+
+    /*
     //Enemy Beams
     for (i = 0; i < numberOfEnemyBeamsUp; i++) {
         enemyBeamUp = new Sprite(random(0, 500), -260, enemyBeamWidth, canvaHeight + random(5, 20), 'k');
@@ -201,7 +217,7 @@ function enemySprite() {
         enemyBeamUp.vel.y = 0;
         enemyBeamSpriteArray.push(enemyBeamUp);
         enemyGroup.add(enemyBeamUp);
-    };
+    }; */
 }
 
 function deleteEnemySprite() {
@@ -352,13 +368,7 @@ function enemyFunction() {
     for (i = 0; i < enemyBeamSpriteArray.length; i++) {
         if (enemyBeamSpriteArray[i].vel.y == 0 && secondTimer >= 11 && secondTimer <= 21) {
             enemyBeamSpriteArray[i].vel.y = random(minBeamSpeed, maxBeamSpeed);
-            console.log("Enemy beam started");
-        } else if (enemyBeamSpriteArray[i].y >= 760 && secondTimer >= 11 && secondTimer <= 21) {
-            enemyBeamSpriteArray[i].y = -770;
-            enemyBeamSpriteArray[i].vel.y = random(minBeamSpeed, maxBeamSpeed);
-            enemyBeamSpriteArray[i].x = random(5, 495);
-            console.log("Enemy beam reload");
-        } else if (enemyBeamSpriteArray[i].vel.y >= 1 && enemyBeamSpriteArray[i].y >= 760 && secondTimer >= 21) {
+        } else if (enemyBeamSpriteArray[i].vel.y >= 1 && enemyBeamSpriteArray[i].y >= 500) {
             enemyBeamSpriteArray[i].remove();
             console.log("Deleted enemy beam");
         }
