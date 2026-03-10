@@ -71,7 +71,6 @@ function setup() {
     enemyGroup = new Group();
     scoreBallGroup = new Group();
 
-
     //Functions
     setupPhases();
 
@@ -144,7 +143,6 @@ function playerSprite() {
     //Player
 	player = new Sprite(250, 250, 25, 25, 'd');
 	player.color = '#d31010';
-
 }
 
 function deletePlayerSprite() {
@@ -196,8 +194,9 @@ function enemySprite() {
     //Improved enemy beams
     for (i = 0; i < numberOfEnemyBeamsUp; i++) {
         enemyBeamX = random(15, 475);
-        for (i = 0; i < numberOfEnemiesInBeamsUp; i++) {
-            enemyBeamUp = new Sprite(enemyBeamX + random(-5, 5), 0 - (i * random(1, 5)), enemyBallDiameter, 'k');
+        console.log("something");
+        for (ii = 0; ii < numberOfEnemiesInBeamsUp; ii++) {
+            enemyBeamUp = new Sprite(enemyBeamX + random(-5, 5), -40 - (ii + random(-20, 20)), enemyBallDiameter, 'k');
             enemyBeamUp.image = (imgSnowBall);
             imgSnowBall.resize(enemyBallDiameter, enemyBallDiameter);
             enemyBeamUp.strokeWeight = 0;
