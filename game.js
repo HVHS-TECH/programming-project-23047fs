@@ -195,7 +195,7 @@ function enemySprite() {
     for (i = 0; i < numberOfEnemyBeamsUp; i++) {
         enemyBeamX = random(15, 475);
         for (ii = 0; ii < numberOfEnemiesInBeamsUp; ii++) {
-            enemyBeamUp = new Sprite(enemyBeamX + random(-5, 5), -40 - (ii + random(-20, 20)), enemyBallDiameter, 'k');
+            enemyBeamUp = new Sprite(enemyBeamX + random(-10, 10), -40 - (i * ii + random(-20, 20)), enemyBallDiameter, 'k');
             enemyBeamUp.image = (imgSnowBall);
             imgSnowBall.resize(enemyBallDiameter, enemyBallDiameter);
             enemyBeamUp.strokeWeight = 0;
@@ -260,7 +260,7 @@ function draw() {
         //Stages
         enemyStage1();
         enemyStage2();
-        enemyStage3();
+        //enemyStage3();
         timerFunction();
         scoreBallFunction();
 
