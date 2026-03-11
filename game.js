@@ -380,7 +380,7 @@ function enemyStage2() {
 
 /*
 function enemyStage3() {
-    //Idea??
+    //Idea come from side??
     if (secondTimer >= (timeOver/3) * 2 && secondTimer <= (timeOver/3) * 3) {
 
     } else if (secondTimer >= 11) {
