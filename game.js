@@ -10,16 +10,17 @@
 //Constants
 const canvaWidth = 500;
 const canvaHeight = 500;
-const numberOfEnemyBallsUp = 15;
+const numberOfEnemyBallsUp = 10;
 const enemyBallDiameter = 20;
 const minBallSpeed = 2;
 const maxBallSpeed = 4;
-const numberOfEnemyBeamsUp = 3;
+const numberOfEnemyBeamsUp = 5;
 const numberOfEnemiesInBeamsUp = 30;
 const minBeamSpeed = 3;
 const maxBeamSpeed = 5;
 const numberOfScoreBallsLeft = 4;
 const scoreBallDiameter = 10;
+const playerSize = 25;
 const playerJumpHeight = 9;
 const playerSpeed = 4;
 const timeOver = 30;
@@ -141,7 +142,7 @@ function deleteStartButtonSprite() {
 
 function playerSprite() {
     //Player
-    player = new Sprite(250, 250, 25, 25, 'd');
+    player = new Sprite(250, 250, playerSize, playerSize, 'd');
     player.color = '#d31010';
 }
 
