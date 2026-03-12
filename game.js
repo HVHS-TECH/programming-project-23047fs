@@ -262,7 +262,7 @@ function draw() {
         //Stages
         enemyStage1();
         enemyStage2();
-        //enemyStage3();
+        enemyStage3();
         timerFunction();
         scoreBallFunction();
 
@@ -351,14 +351,6 @@ function enemyStage1() {
                 console.log("Enemy ball reload");
             }
         }
-    } else if (secondTimer >= timeOver / 3) {
-        //When time runs out
-        for (i = 0; i < enemyBallSpriteArray.length; i++) {
-            if (enemyBallSpriteArray[i].y >= 500) {
-                enemyBallSpriteArray[i].remove();
-                console.log("Deleted enemy ball");
-            }
-        }
     }
 }
 
@@ -379,15 +371,30 @@ function enemyStage2() {
     }
 }
 
-/*
+
 function enemyStage3() {
     //Idea come from side??
-    if (secondTimer >= (timeOver/3) * 2 && secondTimer <= (timeOver/3) * 3) {
-
-    } else if (secondTimer >= 11) {
-
+    if (secondTimer >= ((timeOver / 3) * 2) - 5 && secondTimer <= (timeOver / 3) * 3) {
+        //If the enemy goes off screen it respawns
+        for (i = 0; i < enemyBallSpriteArray.length; i++) {
+            if (enemyBallSpriteArray[i].x >= 500 || enemyBallSpriteArray[i].y >= 500 ) {
+                enemyBallSpriteArray[i].x = random(-25, -5);
+                enemyBallSpriteArray[i].vel.x = random(minBallSpeed, maxBallSpeed);
+                enemyBallSpriteArray[i].vel.y = random(1, 2);
+                enemyBallSpriteArray[i].y = random(30, 510);
+                console.log("Enemy ball reload");
+            }
+        }
+    } else if (secondTimer >= timeOver) {
+        //When time runs out
+        for (i = 0; i < enemyBallSpriteArray.length; i++) {
+            if (enemyBallSpriteArray[i].x >= 500) {
+                enemyBallSpriteArray[i].remove();
+                console.log("Deleted enemy ball");
+            }
+        }
     }
-} */
+}
 
 //Timer funciton
 function timerFunction() {
