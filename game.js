@@ -52,7 +52,7 @@ let intervalID = setInterval(() => {
 
 function preload() {
     //Loading the images for assets
-    imgSnowBall = loadImage('../assets/images/Snowball.png');
+    imgSnowBall = loadImage('assets/images/Snowball.png');
 
 }
 
@@ -243,6 +243,7 @@ function draw() {
     //What happens when the screen phases switch, what is deleted, what functions are drawn
     if (screenPhase == "start") {
         //Start screen
+        textSize(15);
         text("Start Game", 210, 200);
         text("Controls: W,A,S,D to move, ", 210, 220);
         startButtonFunction();
