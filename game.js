@@ -143,8 +143,8 @@ function setupPhases() {
 
 function startButtonSprite() {
     //Start Button
-    startButton = new Sprite(250, 260, 80, 30, 'n');
-    startButton.color = '#3ceb07';
+    startButton = new Sprite(250, 280, 150, 25, 'n');
+    startButton.color = '#62e0ff';
 }
 
 function deleteStartButtonSprite() {
@@ -153,8 +153,8 @@ function deleteStartButtonSprite() {
 
 function restartButtonSprite() {
     //Start Button
-    restartButton = new Sprite(250, 300, 80, 30, 'n');
-    restartButton.color = '#3ceb07';
+    restartButton = new Sprite(250, 280, 150, 25, 'n');
+    restartButton.color = '#62e0ff';
 }
 
 function deleteRestartButtonSprite() {
@@ -266,7 +266,7 @@ function draw() {
         //Start screen
         textSize(15);
         text("Start Game", 180, 160);
-        text("Controls: W,A,S,D to move, ", 180, 180);
+        text("Controls: W,A,S,D to move", 180, 180);
         text("Press space to start", 180, 240);
         startButtonFunction();
 
@@ -302,7 +302,7 @@ function draw() {
         text("You have scored: " + playerScore, 180, 220);
 
         //Restart
-        text("Press space to restart", 180, 260);
+        text("Press space to restart", 180, 240);
         restartButtonFunction();
 
     } else if (screenPhase == "win") {
@@ -319,7 +319,7 @@ function draw() {
         text("You have scored: " + playerScore, 180, 220);
 
         //Restart
-        text("Press space to restart", 180, 260);
+        text("Press space to restart", 180, 240);
         restartButtonFunction();
     };
 }
@@ -457,7 +457,7 @@ function scoreBallFunction() {
         if (scoreBallSpriteArray[i].collides(player)) {
             scoreBallsCollected = scoreBallsCollected + 1;
             //Moves scoreball
-            scoreBallSpriteArray[i].x = random(50, 450);
+            scoreBallSpriteArray[i].x =  random(50, 450);
             scoreBallSpriteArray[i].y = random(50, 450);
         }
     }
