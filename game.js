@@ -34,6 +34,7 @@ let playerScore = 0;
 let secondTimer = 0;
 let timerSurvived = 0;
 let enemyBeamX = 0;
+let restarted = false;
 
 //Arrays
 //Enemy ball sprites
@@ -88,6 +89,10 @@ function setupPhases() {
         //Delete previous sprites
         deleteStartButtonSprite();
 
+        if (restarted == true) {
+        deleteRestartButtonSprite();
+        };
+
         //Game screen
         playerSprite();
         wallSprite();
@@ -105,6 +110,9 @@ function setupPhases() {
         deleteEnemySprite();
         deleteScoreBallSprite();
 
+        //Load new sprites
+        restartButtonSprite();
+
         //Set final score
         timerSurvived = secondTimer;
         playerScore = + scoreBallsCollected * secondTimer;
@@ -119,6 +127,9 @@ function setupPhases() {
         deleteEnemySprite();
         deleteScoreBallSprite();
 
+        //Load new sprites
+        restartButtonSprite();
+
         //Set final score and time
         timerSurvived = secondTimer;
         playerScore = + scoreBallsCollected * secondTimer;
@@ -132,12 +143,22 @@ function setupPhases() {
 
 function startButtonSprite() {
     //Start Button
-    startButton = new Sprite(250, 250, 80, 30, 'n');
+    startButton = new Sprite(250, 260, 80, 30, 'n');
     startButton.color = '#3ceb07';
 }
 
 function deleteStartButtonSprite() {
     startButton.remove();
+}
+
+function restartButtonSprite() {
+    //Start Button
+    restartButton = new Sprite(250, 300, 80, 30, 'n');
+    restartButton.color = '#3ceb07';
+}
+
+function deleteRestartButtonSprite() {
+    restartButton.remove();
 }
 
 function playerSprite() {
@@ -176,8 +197,8 @@ function wallSprite() {
 }
 
 function deleteWallSprite() {
-    hitBoxGroup.remove();
-    floorGroup.remove();
+    hitBoxGroup.deleteAll();
+    floorGroup.deleteAll();
 }
 
 function enemySprite() {
@@ -209,7 +230,7 @@ function enemySprite() {
 }
 
 function deleteEnemySprite() {
-    enemyGroup.remove();
+    enemyGroup.deleteAll();
 }
 
 function scoreBallSprite() {
@@ -224,7 +245,7 @@ function scoreBallSprite() {
 };
 
 function deleteScoreBallSprite() {
-    scoreBallGroup.remove();
+    scoreBallGroup.deleteAll();
 }
 
 /*******************************************************/
@@ -234,18 +255,19 @@ function draw() {
     background('#b8b8b8');
 
     //Visual Variables
-    text("Mouse X " + round(mouse.x), 20, 20);
-    text("Mouse Y " + round(mouse.y), 20, 40);
-    text("Timer " + secondTimer, 20, 60);
-    text("Score " + scoreBallsCollected, 20, 80);
+    text("Mouse X " + round(mouse.x), 10, 20);
+    text("Mouse Y " + round(mouse.y), 10, 40);
+    text("Timer " + secondTimer, 10, 60);
+    text("Score " + scoreBallsCollected, 10, 80);
 
     //Screen Phases
     //What happens when the screen phases switch, what is deleted, what functions are drawn
     if (screenPhase == "start") {
         //Start screen
         textSize(15);
-        text("Start Game", 210, 200);
-        text("Controls: W,A,S,D to move, ", 210, 220);
+        text("Start Game", 180, 160);
+        text("Controls: W,A,S,D to move, ", 180, 180);
+        text("Press space to start", 180, 240);
         startButtonFunction();
 
     } else if (screenPhase == "game") {
@@ -274,10 +296,14 @@ function draw() {
         }
 
         //Lose screen
-        text("You have lost the game", 210, 200);
-        text("You survived: " + timerSurvived + " seconds", 210, 220);
-        text("You collected: " + scoreBallsCollected + " score balls", 210, 240);
-        text("You have scored: " + playerScore, 210, 260);
+        text("You have lost the game", 180, 160);
+        text("You survived: " + timerSurvived + " seconds", 180, 180);
+        text("You collected: " + scoreBallsCollected + " score balls", 180, 200);
+        text("You have scored: " + playerScore, 180, 220);
+
+        //Restart
+        text("Press space to restart", 180, 260);
+        restartButtonFunction();
 
     } else if (screenPhase == "win") {
         if (screenPhaseSetup == true) {
@@ -287,19 +313,38 @@ function draw() {
         }
 
         //Win screen
-        text("Wow you have won the game", 210, 200);
-        text("You survived: " + timerSurvived + " seconds", 210, 220);
-        text("You collected: " + scoreBallsCollected + " score balls", 210, 240);
-        text("You have scored: " + playerScore, 210, 260);
+        text("Wow you have won the game", 180, 160);
+        text("You survived: " + timerSurvived + " seconds", 180, 180);
+        text("You collected: " + scoreBallsCollected + " score balls", 180, 200);
+        text("You have scored: " + playerScore, 180, 220);
+
+        //Restart
+        text("Press space to restart", 180, 260);
+        restartButtonFunction();
     };
 }
 
 //Switching screens and screen phases
 function startButtonFunction() {
     //Start button
-    if (mouseX > width / 2 - startButton.w / 2 && mouseX < width / 2 + startButton.w / 2 && mouseY > height / 2 - startButton.h / 2 && mouseY < height / 2 + startButton.h / 2 && mouseIsPressed) {
+    if (kb.presses('space')) {
         screenPhase = "game"
         screenPhaseSetup = true;
+        scoreBallsCollected = 0;
+        playerScore = 0;
+        secondTimer = 0;
+        timerSurvived = 0;
+    };
+}
+
+function restartButtonFunction() {
+    //Start button
+    if (kb.presses('space')) {
+        screenPhase = "game"
+        screenPhaseSetup = true;
+        restarted = true;
+        score = 0;
+
     };
 }
 
