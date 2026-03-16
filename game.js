@@ -69,8 +69,9 @@ function setup() {
     floorGroup = new Group();
     //Group that has 'k' physics and allows the player to jump on. Eg the floor
     hitBoxGroup = new Group();
-    //Group for enemy sprite
+    //Group for enemy sprites
     enemyGroup = new Group();
+    //Group for scoreball sprites
     scoreBallGroup = new Group();
 
     //Functions
