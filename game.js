@@ -8,6 +8,7 @@
 /*******************************************************/
 
 //Constants
+//All constants are here to allow for easy changes
 const canvaWidth = 500;
 const canvaHeight = 500;
 const numberOfEnemyBallsUp = 10;
@@ -33,7 +34,6 @@ let scoreBallsCollected = 0;
 let playerScore = 0;
 let secondTimer = 0;
 let timerSurvived = 0;
-let enemyBeamX = 0;
 let restarted = false;
 
 //Arrays
@@ -215,7 +215,7 @@ function enemySprite() {
 
     //Improved enemy beams
     for (i = 0; i < numberOfEnemyBeamsUp; i++) {
-        enemyBeamX = random(15, 475);
+        let enemyBeamX = random(15, 475);
         for (ii = 0; ii < numberOfEnemiesInBeamsUp; ii++) {
             enemyBeamUp = new Sprite(enemyBeamX + random(-8, 8), -40 - (i * ii + random(0, 20)), enemyBallDiameter, 'k');
             enemyBeamUp.image = (imgSnowBall);
