@@ -84,14 +84,19 @@ function setupPhases() {
     if (screenPhase == "start") {
         //Start screen
         startButtonSprite();
+        controlButtonSprite();
+        titleButtonSprite();
         console.log("Start Screen")
 
     } else if (screenPhase == "game") {
         //Delete previous sprites
         deleteStartButtonSprite();
+        deleteControlButtonSprite();
+        deleteTitleButtonSprite();
 
         if (restarted == true) {
-        deleteRestartButtonSprite();
+            deleteRestartButtonSprite();
+            deleteTitleButtonSprite();
         };
 
         //Game screen
@@ -113,6 +118,7 @@ function setupPhases() {
 
         //Load new sprites
         restartButtonSprite();
+        titleButtonSprite();
 
         //Set final score
         timerSurvived = secondTimer;
@@ -130,6 +136,7 @@ function setupPhases() {
 
         //Load new sprites
         restartButtonSprite();
+        titleButtonSprite();
 
         //Set final score and time
         timerSurvived = secondTimer;
@@ -142,20 +149,48 @@ function setupPhases() {
 
 }
 
+function titleButtonSprite() {
+    //Start Button
+    titleButton = new Sprite(250, 100, 300, 50, 'n');
+    titleButton.color = '#92a5f7';
+    titleButton.text = "Snowball" + "<br>" + "Rain";
+    titleButton.textSize = 30;
+}
+
+function deleteTitleButtonSprite() {
+    titleButton.remove();
+}
+
 function startButtonSprite() {
     //Start Button
-    startButton = new Sprite(250, 280, 150, 25, 'n');
+    startButton = new Sprite(250, 200, 240, 30, 'n');
     startButton.color = '#62e0ff';
+    startButton.text = "Press Space to start";
+    startButton.textSize = 20;
 }
 
 function deleteStartButtonSprite() {
     startButton.remove();
 }
 
+function controlButtonSprite() {
+    //Start Button
+    controlButton = new Sprite(250, 235, 240, 30, 'n');
+    controlButton.color = '#62e0ff';
+    controlButton.text = "Press C to see controls";
+    controlButton.textSize = 20;
+}
+
+function deleteControlButtonSprite() {
+    controlButton.remove();
+}
+
 function restartButtonSprite() {
     //Start Button
-    restartButton = new Sprite(250, 280, 150, 25, 'n');
+    restartButton = new Sprite(250, 260, 240, 30, 'n');
     restartButton.color = '#62e0ff';
+    restartButton.text = "Press Space to restart";
+    restartButton.textSize = 20;
 }
 
 function deleteRestartButtonSprite() {
@@ -256,6 +291,8 @@ function draw() {
     background('#b8b8b8');
 
     //Visual Variables
+    textSize(15);
+    textAlign("right");
     text("Mouse X " + round(mouse.x), 10, 20);
     text("Mouse Y " + round(mouse.y), 10, 40);
     text("Timer " + secondTimer, 10, 60);
@@ -265,10 +302,7 @@ function draw() {
     //What happens when the screen phases switch, what is deleted, what functions are drawn
     if (screenPhase == "start") {
         //Start screen
-        textSize(15);
-        text("Start Game", 180, 160);
-        text("Controls: W,A,S,D to move", 180, 180);
-        text("Press space to start", 180, 240);
+        controlButtonFunction();
         startButtonFunction();
 
     } else if (screenPhase == "game") {
@@ -297,13 +331,13 @@ function draw() {
         }
 
         //Lose screen
-        text("You have lost the game", 180, 160);
-        text("You survived: " + timerSurvived + " seconds", 180, 180);
-        text("You collected: " + scoreBallsCollected + " score balls", 180, 200);
-        text("You have scored: " + playerScore, 180, 220);
+        textAlign("center")
+        text("You have lost the game", 250, 160);
+        text("You survived: " + timerSurvived + " seconds", 250, 180);
+        text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
+        text("You have scored: " + playerScore, 250, 220);
 
         //Restart
-        text("Press space to restart", 180, 240);
         restartButtonFunction();
 
     } else if (screenPhase == "win") {
@@ -314,18 +348,29 @@ function draw() {
         }
 
         //Win screen
-        text("Wow you have won the game", 180, 160);
-        text("You survived: " + timerSurvived + " seconds", 180, 180);
-        text("You collected: " + scoreBallsCollected + " score balls", 180, 200);
-        text("You have scored: " + playerScore, 180, 220);
+        textAlign("center")
+        text("Wow you have won the game", 250, 160);
+        text("You survived: " + timerSurvived + " seconds", 250, 180);
+        text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
+        text("You have scored: " + playerScore, 250, 220);
 
         //Restart
-        text("Press space to restart", 180, 240);
         restartButtonFunction();
     };
 }
 
 //Switching screens and screen phases
+function controlButtonFunction() {
+    //Start button
+    if (kb.pressing('c')) {
+        textAlign("center");
+        text("Collect as many yellow balls", 250, 270);
+        text("Dodge the snowballs", 250, 290);
+        text("Score is the number of yellow balls times by the time survived", 250, 310);
+        text("To move it is W, A, S, D", 250, 330);
+    };
+}
+
 function startButtonFunction() {
     //Start button
     if (kb.presses('space')) {
@@ -344,15 +389,18 @@ function restartButtonFunction() {
         screenPhase = "game"
         screenPhaseSetup = true;
         restarted = true;
-        score = 0;
-
+        scoreBallsCollected = 0;
+        playerScore = 0;
+        secondTimer = 0;
+        timerSurvived = 0;
+        console.log("Restart");
     };
 }
 
 //Movement and rotation with keyboard inputs
 function keyboardMovement() {
     //Resistance
-    player.vel.x = player.vel.x / 1.04;
+    player.vel.x = player.vel.x / 1.043;
     player.rotationSpeed = player.rotationSpeed / 1.035;
 
     //Left
@@ -423,7 +471,7 @@ function enemyStage3() {
     if (secondTimer >= ((timeOver / 3) * 2) - 5 && secondTimer <= (timeOver / 3) * 3) {
         //If the enemy goes off screen it respawns
         for (i = 0; i < enemyBallSpriteArray.length; i++) {
-            if (enemyBallSpriteArray[i].x >= 500 || enemyBallSpriteArray[i].y >= 500 ) {
+            if (enemyBallSpriteArray[i].x >= 500 || enemyBallSpriteArray[i].y >= 500) {
                 enemyBallSpriteArray[i].x = random(-25, -5);
                 enemyBallSpriteArray[i].vel.x = random(minBallSpeed, maxBallSpeed);
                 enemyBallSpriteArray[i].vel.y = random(1, 2);
@@ -455,10 +503,10 @@ function timerFunction() {
 function scoreBallFunction() {
     //If player collects a score ball
     for (i = 0; i < scoreBallSpriteArray.length; i++) {
-        if (scoreBallSpriteArray[i].collides(player)) {
+        if (scoreBallSpriteArray[i].overlapping(player)) {
             scoreBallsCollected = scoreBallsCollected + 1;
             //Moves scoreball
-            scoreBallSpriteArray[i].x =  random(50, 450);
+            scoreBallSpriteArray[i].x = random(50, 450);
             scoreBallSpriteArray[i].y = random(50, 450);
         }
     }
