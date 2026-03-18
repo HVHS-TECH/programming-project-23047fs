@@ -16,7 +16,7 @@ const enemyBallDiameter = 20;
 const minBallSpeed = 2;
 const maxBallSpeed = 4;
 const numberOfEnemyBeamsUp = 5;
-const numberOfEnemiesInBeamsUp = 30;
+const numberOfEnemiesInBeamsUp = 15;
 const minBeamSpeed = 3;
 const maxBeamSpeed = 5;
 const numberOfScoreBallsLeft = 4;
@@ -253,7 +253,8 @@ function enemySprite() {
     for (i = 0; i < numberOfEnemyBeamsUp; i++) {
         let enemyBeamX = random(15, 475);
         for (ii = 0; ii < numberOfEnemiesInBeamsUp; ii++) {
-            enemyBeamUp = new Sprite(enemyBeamX + random(-8, 8), -40 - (i * ii + random(0, 20)), enemyBallDiameter, 'k');
+            //
+            enemyBeamUp = new Sprite(enemyBeamX + random(-8, 8), -(random(5, 10) * ii) - 40, enemyBallDiameter, 'k');
             enemyBeamUp.image = (imgSnowBall);
             imgSnowBall.resize(enemyBallDiameter, enemyBallDiameter);
             enemyBeamUp.strokeWeight = 0;
