@@ -292,7 +292,7 @@ function draw() {
 
     //Visual Variables
     textSize(15);
-    textAlign("right");
+    textAlign("left");
     text("Mouse X " + round(mouse.x), 10, 20);
     text("Mouse Y " + round(mouse.y), 10, 40);
     text("Timer " + secondTimer, 10, 60);
