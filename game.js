@@ -150,10 +150,10 @@ function setupPhases() {
 }
 
 function titleButtonSprite() {
-    //Start Button
+    //Title Button
     titleButton = new Sprite(250, 100, 300, 50, 'n');
     titleButton.color = '#92a5f7';
-    titleButton.text = "Snowball" + "<br>" + "Rain";
+    titleButton.text = "Snowball " +  "Rain";
     titleButton.textSize = 30;
 }
 
@@ -174,7 +174,7 @@ function deleteStartButtonSprite() {
 }
 
 function controlButtonSprite() {
-    //Start Button
+    //Control Button
     controlButton = new Sprite(250, 235, 240, 30, 'n');
     controlButton.color = '#62e0ff';
     controlButton.text = "Press C to see controls";
@@ -186,7 +186,7 @@ function deleteControlButtonSprite() {
 }
 
 function restartButtonSprite() {
-    //Start Button
+    //Restart Button
     restartButton = new Sprite(250, 260, 240, 30, 'n');
     restartButton.color = '#62e0ff';
     restartButton.text = "Press Space to restart";
