@@ -11,8 +11,8 @@
 //All constants are here to allow for easy changes
 const canvaWidth = 500;
 const canvaHeight = 500;
-const numberOfEnemyBallsUp = 10;
-const enemyBallDiameter = 20;
+const numberOfEnemyBallsUp = 7;
+const enemyBallDiameter = 30;
 const minBallSpeed = 2;
 const maxBallSpeed = 4;
 const numberOfEnemyBeamsUp = 5;
@@ -21,7 +21,7 @@ const minBeamSpeed = 3;
 const maxBeamSpeed = 5;
 const numberOfScoreBallsLeft = 4;
 const scoreBallDiameter = 10;
-const playerSize = 25;
+const playerSize = 30;
 const playerJumpHeight = 9;
 const playerSpeed = 4;
 const timeOver = 30;
@@ -203,7 +203,7 @@ function playerSprite() {
     //Player
     player = new Sprite(250, 250, playerSize, playerSize, 'd');
     player.image = (imgPlayerCat);
-    imgPlayerCat.resize(playerSize, playerSize);}
+    imgPlayerCat.resize(playerSize + 10, playerSize + 10);}
 
 function deletePlayerSprite() {
     player.remove();
