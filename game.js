@@ -368,7 +368,7 @@ function controlButtonFunction() {
         text("Collect as many yellow balls", 250, 270);
         text("Dodge the snowballs", 250, 290);
         text("The score is the number of yellow balls times by the time survived", 250, 310);
-        text("To move it is W, A, S, D", 250, 330);
+        text("To move it is W, A, S, D, and hold W on walls to climb", 250, 330);
     };
 }
 
