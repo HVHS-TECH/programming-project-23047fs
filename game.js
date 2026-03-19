@@ -153,7 +153,7 @@ function titleButtonSprite() {
     //Title Button
     titleButton = new Sprite(250, 100, 300, 50, 'n');
     titleButton.color = '#92a5f7';
-    titleButton.text = "Snowball " +  "Rain";
+    titleButton.text = "Ball " +  "Rain";
     titleButton.textSize = 30;
 }
 
