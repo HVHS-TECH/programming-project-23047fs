@@ -35,6 +35,7 @@ let playerScore = 0;
 let secondTimer = 0;
 let timerSurvived = 0;
 let restarted = false;
+let globalScore = 0;
 
 //Arrays
 //Enemy ball sprites
@@ -101,6 +102,12 @@ function setupPhases() {
             deleteTitleButtonSprite();
         };
 
+        //Player skin
+        if (globalScore >= 100) {
+            player.image = (imgPlayerTabbyCat);
+            imgPlayerCat.resize(playerSize + 10, playerSize + 10);
+        }
+
         //Game screen
         playerSprite();
         wallSprite();
@@ -125,6 +132,7 @@ function setupPhases() {
         //Set final score
         timerSurvived = secondTimer;
         playerScore = + scoreBallsCollected * secondTimer;
+        globalScore = globalScore + playerScore;
 
         //Lose screen
         console.log("Lose Screen")
@@ -143,6 +151,7 @@ function setupPhases() {
         //Set final score and time
         timerSurvived = secondTimer;
         playerScore = + scoreBallsCollected * secondTimer;
+        globalScore = globalScore + playerScore;
 
         //Win screen
         console.log("Win Screen")
@@ -300,6 +309,7 @@ function draw() {
     text("Mouse Y " + round(mouse.y), 10, 40);
     text("Timer " + secondTimer, 10, 60);
     text("Score " + scoreBallsCollected, 10, 80);
+    text("Global score " + globalScore, 10, 100);
 
     //Screen Phases
     //What happens when the screen phases switch, what is deleted, what functions are drawn
