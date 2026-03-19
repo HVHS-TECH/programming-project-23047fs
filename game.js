@@ -309,7 +309,7 @@ function draw() {
     text("Mouse Y " + round(mouse.y), 10, 40);
     text("Timer " + secondTimer, 10, 60);
     text("Score " + scoreBallsCollected, 10, 80);
-    text("Global score " + globalScore, 10, 100);
+    text("Global score " + globalScore, 110, 20);
 
     //Screen Phases
     //What happens when the screen phases switch, what is deleted, what functions are drawn
