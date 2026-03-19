@@ -54,6 +54,8 @@ let intervalID = setInterval(() => {
 function preload() {
     //Loading the images for assets
     imgSnowBall = loadImage('assets/images/Snowball.png');
+    imgPlayerCat = loadImage('assets/images/Cat.png');
+    imgPlayerTabbyCat = loadImage('assets/images/TabbyCat.png');
 
 }
 
@@ -200,8 +202,8 @@ function deleteRestartButtonSprite() {
 function playerSprite() {
     //Player
     player = new Sprite(250, 250, playerSize, playerSize, 'd');
-    player.color = '#d31010';
-}
+    player.image = (imgPlayerCat);
+    imgPlayerCat.resize(playerSize, playerSize);}
 
 function deletePlayerSprite() {
     player.remove();
