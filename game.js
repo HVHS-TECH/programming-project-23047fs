@@ -455,7 +455,6 @@ function enemyStage1() {
                 enemyBallSpriteArray[i].y = random(-10, -1);
                 enemyBallSpriteArray[i].vel.y = random(minBallSpeed, maxBallSpeed);
                 enemyBallSpriteArray[i].x = random(25, 475);
-                console.log("Enemy ball reload");
             }
         }
     }
@@ -472,7 +471,6 @@ function enemyStage2() {
             } else if (enemyBeamSpriteArray[i].vel.y >= 1 && enemyBeamSpriteArray[i].y >= 500) {
                 //Deleting the beam enemy
                 enemyBeamSpriteArray[i].remove();
-                console.log("Deleted enemy beam");
             }
         }
     }
@@ -489,7 +487,6 @@ function enemyStage3() {
                 enemyBallSpriteArray[i].vel.x = random(minBallSpeed, maxBallSpeed);
                 enemyBallSpriteArray[i].vel.y = random(1, 2);
                 enemyBallSpriteArray[i].y = random(30, 510);
-                console.log("Enemy ball reload");
             }
         }
     } else if (secondTimer >= timeOver) {
@@ -497,7 +494,6 @@ function enemyStage3() {
         for (i = 0; i < enemyBallSpriteArray.length; i++) {
             if (enemyBallSpriteArray[i].x >= 500) {
                 enemyBallSpriteArray[i].remove();
-                console.log("Deleted enemy ball");
             }
         }
     }
