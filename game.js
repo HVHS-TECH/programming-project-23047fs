@@ -37,6 +37,7 @@ let timerSurvived = 0;
 let restarted = false;
 let globalScore = 0;
 let savedFrameCount = 0;
+let highscore = 0;
 
 //Arrays
 //Enemy ball sprites
@@ -123,6 +124,10 @@ function setupPhases() {
         timerSurvived = secondTimer;
         playerScore = + scoreBallsCollected * secondTimer;
         globalScore = globalScore + playerScore;
+        //Set highscore
+        if (highscore > playerScore) {
+            highscore = playerScore;
+        };
 
         //Lose screen
         console.log("Lose Screen")
@@ -142,6 +147,10 @@ function setupPhases() {
         timerSurvived = secondTimer;
         playerScore = + scoreBallsCollected * secondTimer;
         globalScore = globalScore + playerScore;
+        //Set highscore
+        if (highscore > playerScore) {
+            highscore = playerScore;
+        };
 
         //Win screen
         console.log("Win Screen")
@@ -294,12 +303,12 @@ function draw() {
 
     //Visual Variables
     textSize(15);
-    textFont(fontBold);
+    textFont("fontBold");
     textAlign("left");
     //text("Mouse X " + round(mouse.x), 10, 20);
     //text("Mouse Y " + round(mouse.y), 10, 40);
-    text("Score of this round: " + scoreBallsCollected, 10, 20);
-    text("Total score gained: " + globalScore, 10, 40);
+    text("Score ball collected: " + scoreBallsCollected, 10, 20);
+    text("Highscore: " + highscore, 10, 40);
     text("Timer " + secondTimer, 10, 60);
 
     //Timer
@@ -316,7 +325,7 @@ function draw() {
         startButtonFunction();
 
         //Texts
-        textFont(fontBold);
+        textFont("fontBold");
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
 
     } else if (screenPhase == "game") {
@@ -351,7 +360,7 @@ function draw() {
         }
 
         //Lose screen
-        textFont(fontBold);
+        textFont("fontBold");
         textAlign("center")
         text("You have lost the game", 250, 160);
         text("You survived: " + timerSurvived + " seconds", 250, 180);
@@ -371,7 +380,7 @@ function draw() {
         }
 
         //Win screen
-        textFont(fontBold);
+        textFont("fontBold");
         textAlign("center")
         text("Wow you have won the game", 250, 160);
         text("You survived: " + timerSurvived + " seconds", 250, 180);
@@ -389,7 +398,7 @@ function draw() {
 function controlButtonFunction() {
     //Start button
     if (kb.pressing('c')) {
-        textFont(fontBold);
+        textFont("fontBold");
         textAlign("center");
         text("Collect as many yellow balls", 250, 270);
         text("Dodge the snowballs", 250, 290);
