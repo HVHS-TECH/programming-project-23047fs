@@ -148,7 +148,7 @@ function setupPhases() {
         playerScore = + scoreBallsCollected * secondTimer;
         globalScore = globalScore + playerScore;
         //Set highscore
-        if (highscore > playerScore) {
+        if (highscore < playerScore) {
             highscore = playerScore;
         };
 
