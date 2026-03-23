@@ -112,7 +112,7 @@ function setupPhases() {
 
         //Game timers
         secondTimer = 0;
-        chosenSide = round(random(0, 1));
+        chosenSide = random([0, 1]);
 
 
     } else if (screenPhase == "lose") {
@@ -422,7 +422,10 @@ function draw() {
         text("Wow you have won the game", 250, 160);
         text("You survived: " + timerSurvived + " seconds", 250, 180);
         text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
+        textFont("Ultra");
+        textSize(25);
         text("You have scored: " + playerScore, 250, 220);
+        textFont("fontBold");
         textSize(15);
         textAlign("left");
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
@@ -538,7 +541,7 @@ function enemyStage3() {
     //Idea come from side??
     //If the enemy goes off screen it respawns
     //Spawn Left
-    if (chosenSide = 0) {
+    if (chosenSide == 0) {
         for (i = 0; i < enemyBallSpriteArray.length; i++) {
             if (enemyBallSpriteArray[i].x >= 500 || enemyBallSpriteArray[i].y >= 500) {
                 enemyBallSpriteArray[i].x = random(-100, -5);
@@ -549,8 +552,8 @@ function enemyStage3() {
                 enemyBallSpriteArray[i].remove();
             };
         };
-    //Spawn Right
-    } else if (chosenSide = 1) {
+        //Spawn Right
+    } else if (chosenSide == 1) {
         for (i = 0; i < enemyBallSpriteArray.length; i++) {
             if (enemyBallSpriteArray[i].x <= 0 || enemyBallSpriteArray[i].y >= 500) {
                 enemyBallSpriteArray[i].x = random(505, 600);
