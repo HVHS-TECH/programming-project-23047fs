@@ -156,7 +156,6 @@ function titleButtonSprite() {
     titleButton.color = '#92a5f7';
     titleButton.text = "Ball " +  "Rain";
     titleButton.textSize = 30;
-    titleButton.textFont = fontBold;
 }
 
 function deleteTitleButtonSprite() {
@@ -169,7 +168,6 @@ function startButtonSprite() {
     startButton.color = '#62e0ff';
     startButton.text = "Press Space to start";
     startButton.textSize = 20;
-    startButton.textFont = fontBold;
 }
 
 function deleteStartButtonSprite() {
@@ -182,7 +180,6 @@ function controlButtonSprite() {
     controlButton.color = '#62e0ff';
     controlButton.text = "Press C to see controls";
     controlButton.textSize = 20;
-    controlButton.textFont = fontBold;
 }
 
 function deleteControlButtonSprite() {
@@ -195,7 +192,6 @@ function restartButtonSprite() {
     restartButton.color = '#62e0ff';
     restartButton.text = "Press Space to restart";
     restartButton.textSize = 20;
-    restartButton.textFont = fontBold;
 }
 
 function deleteRestartButtonSprite() {
