@@ -346,8 +346,9 @@ function draw() {
         startButtonFunction();
 
         //Texts
-        textSize(15);
         textFont("fontBold");
+        textAlign("center")
+        textSize(15);
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
         textSize(20);
 
