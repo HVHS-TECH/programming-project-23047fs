@@ -393,10 +393,14 @@ function draw() {
         //Lose screen
         textFont("fontBold");
         textAlign("center")
-        text("You have lost the game", 250, 160);
-        text("You survived: " + timerSurvived + " seconds", 250, 180);
+        textSize(18);
+        text("You have lost the game", 250, 150);
+        text("You survived: " + timerSurvived + " seconds", 250, 175);
         text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
-        text("You have scored: " + playerScore, 250, 220);
+        textFont("Ultra");
+        textSize(25);
+        text("You have scored: " + playerScore, 245, 230);
+        textFont("fontBold");
         textSize(15);
         textAlign("left");
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
