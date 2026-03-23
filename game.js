@@ -347,7 +347,7 @@ function draw() {
 
         //Texts
         textFont("fontBold");
-        textAlign("center")
+        textAlign("left")
         textSize(15);
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
         textSize(20);
