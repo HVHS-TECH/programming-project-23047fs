@@ -36,6 +36,7 @@ let secondTimer = 0;
 let timerSurvived = 0;
 let restarted = false;
 let globalScore = 0;
+let savedFrameCount = 0;
 
 //Arrays
 //Enemy ball sprites
@@ -47,10 +48,10 @@ let scoreBallSpriteArray = [];
 
 //Timers
 //Second timer
+/*
 let intervalID = setInterval(() => {
     secondTimer = secondTimer + 1;
-}, 1000); //1000 ms timer 
-
+}, 1000); //1000 ms timer */
 
 function preload() {
     //Loading the images for assets
@@ -300,11 +301,17 @@ function draw() {
     //Visual Variables
     textSize(15);
     textAlign("left");
-    text("Mouse X " + round(mouse.x), 10, 20);
-    text("Mouse Y " + round(mouse.y), 10, 40);
+    //text("Mouse X " + round(mouse.x), 10, 20);
+    //text("Mouse Y " + round(mouse.y), 10, 40);
+    text("Score of this round: " + scoreBallsCollected, 10, 20);
+    text("Total score gained: " + globalScore, 10, 40);
     text("Timer " + secondTimer, 10, 60);
-    text("Score " + scoreBallsCollected, 10, 80);
-    text("Global score " + globalScore, 110, 20);
+
+    //Timer
+    if (frameCount == savedFrameCount + 60) {
+        secondTimer = secondTimer + 1;
+        savedFrameCount = frameCount;
+    }
 
     //Screen Phases
     //What happens when the screen phases switch, what is deleted, what functions are drawn
@@ -333,6 +340,7 @@ function draw() {
         enemyStage3();
         timerFunction();
         scoreBallFunction();
+
         //Player skin
         if (globalScore >= 100) {
             player.image = (imgPlayerTabbyCat);
@@ -507,7 +515,7 @@ function enemyStage3() {
 //Timer funciton
 function timerFunction() {
     //Timer runs out
-    if (secondTimer == timeOver) {
+    if (secondTimer >= timeOver) {
         //Win Game
         screenPhase = "win";
         screenPhaseSetup = true;
