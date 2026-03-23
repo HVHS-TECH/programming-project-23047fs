@@ -156,6 +156,7 @@ function titleButtonSprite() {
     titleButton.color = '#92a5f7';
     titleButton.text = "Ball " +  "Rain";
     titleButton.textSize = 30;
+    titleButton.textFont = fontBold;
 }
 
 function deleteTitleButtonSprite() {
@@ -168,6 +169,7 @@ function startButtonSprite() {
     startButton.color = '#62e0ff';
     startButton.text = "Press Space to start";
     startButton.textSize = 20;
+    startButton.textFont = fontBold;
 }
 
 function deleteStartButtonSprite() {
@@ -180,6 +182,7 @@ function controlButtonSprite() {
     controlButton.color = '#62e0ff';
     controlButton.text = "Press C to see controls";
     controlButton.textSize = 20;
+    controlButton.textFont = fontBold;
 }
 
 function deleteControlButtonSprite() {
@@ -192,6 +195,7 @@ function restartButtonSprite() {
     restartButton.color = '#62e0ff';
     restartButton.text = "Press Space to restart";
     restartButton.textSize = 20;
+    restartButton.textFont = fontBold;
 }
 
 function deleteRestartButtonSprite() {
@@ -294,6 +298,7 @@ function draw() {
 
     //Visual Variables
     textSize(15);
+    textFont(fontBold);
     textAlign("left");
     //text("Mouse X " + round(mouse.x), 10, 20);
     //text("Mouse Y " + round(mouse.y), 10, 40);
@@ -315,6 +320,7 @@ function draw() {
         startButtonFunction();
 
         //Texts
+        textFont(fontBold);
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
 
     } else if (screenPhase == "game") {
@@ -349,11 +355,13 @@ function draw() {
         }
 
         //Lose screen
+        textFont(fontBold);
         textAlign("center")
         text("You have lost the game", 250, 160);
         text("You survived: " + timerSurvived + " seconds", 250, 180);
         text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
         text("You have scored: " + playerScore, 250, 220);
+        textAlign("left");
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
 
         //Restart
@@ -367,11 +375,13 @@ function draw() {
         }
 
         //Win screen
+        textFont(fontBold);
         textAlign("center")
         text("Wow you have won the game", 250, 160);
         text("You survived: " + timerSurvived + " seconds", 250, 180);
         text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
         text("You have scored: " + playerScore, 250, 220);
+        textAlign("left");
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
 
         //Restart
@@ -383,6 +393,7 @@ function draw() {
 function controlButtonFunction() {
     //Start button
     if (kb.pressing('c')) {
+        textFont(fontBold);
         textAlign("center");
         text("Collect as many yellow balls", 250, 270);
         text("Dodge the snowballs", 250, 290);
