@@ -12,7 +12,7 @@
 const canvaWidth = 500;
 const canvaHeight = 500;
 const numberOfEnemyBallsUp = 7;
-const enemyBallDiameter = 30;
+const enemyBallDiameter = 24;
 const minBallSpeed = 2;
 const maxBallSpeed = 4;
 const numberOfEnemyBeamsUp = 5;
@@ -21,7 +21,7 @@ const minBeamSpeed = 3;
 const maxBeamSpeed = 5;
 const numberOfScoreBallsLeft = 4;
 const scoreBallDiameter = 10;
-const playerSize = 28;
+const playerSize = 24;
 const playerJumpHeight = 9;
 const playerSpeed = 4;
 const timeOver = 30;
@@ -55,7 +55,8 @@ let intervalID = setInterval(() => {
 function preload() {
     //Loading the images for assets
     imgSnowBall = loadImage('assets/images/Snowball.png');
-    imgPlayerCat = loadImage('assets/images/Cat.png');
+    imgBackground = loadImage('assets/images/Background.png');
+    imgPlayerCat = loadImage('assets/images/tester.png');
     imgPlayerTabbyCat = loadImage('assets/images/TabbyCat.png');
 
 }
@@ -101,12 +102,6 @@ function setupPhases() {
             deleteRestartButtonSprite();
             deleteTitleButtonSprite();
         };
-
-        //Player skin
-        if (globalScore >= 100) {
-            player.image = (imgPlayerTabbyCat);
-            imgPlayerCat.resize(playerSize + 10, playerSize + 10);
-        }
 
         //Game screen
         playerSprite();
@@ -212,7 +207,7 @@ function playerSprite() {
     //Player
     player = new Sprite(250, 250, playerSize, playerSize, 'd');
     player.image = (imgPlayerCat);
-    imgPlayerCat.resize(playerSize + 10, playerSize + 10);}
+    imgPlayerCat.resize(playerSize, playerSize);}
 
 function deletePlayerSprite() {
     player.remove();
@@ -300,7 +295,7 @@ function deleteScoreBallSprite() {
 // draw()
 /*******************************************************/
 function draw() {
-    background('#b8b8b8');
+    background(imgBackground);
 
     //Visual Variables
     textSize(15);
@@ -317,6 +312,9 @@ function draw() {
         //Start screen
         controlButtonFunction();
         startButtonFunction();
+
+        //Texts
+        text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
 
     } else if (screenPhase == "game") {
         //One time setup of sprites
@@ -335,6 +333,11 @@ function draw() {
         enemyStage3();
         timerFunction();
         scoreBallFunction();
+        //Player skin
+        if (globalScore >= 100) {
+            player.image = (imgPlayerTabbyCat);
+            imgPlayerTabbyCat.resize(playerSize, playerSize );
+        }
 
     } else if (screenPhase == "lose") {
         if (screenPhaseSetup == true) {
@@ -349,6 +352,7 @@ function draw() {
         text("You survived: " + timerSurvived + " seconds", 250, 180);
         text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
         text("You have scored: " + playerScore, 250, 220);
+        text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
 
         //Restart
         restartButtonFunction();
@@ -366,6 +370,7 @@ function draw() {
         text("You survived: " + timerSurvived + " seconds", 250, 180);
         text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
         text("You have scored: " + playerScore, 250, 220);
+        text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
 
         //Restart
         restartButtonFunction();
