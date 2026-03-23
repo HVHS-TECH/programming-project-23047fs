@@ -19,12 +19,13 @@ const numberOfEnemyBeamsUp = 5;
 const numberOfEnemiesInBeamsUp = 15;
 const minBeamSpeed = 3;
 const maxBeamSpeed = 5;
-const numberOfScoreBallsLeft = 4;
+const numberOfScoreBallsLeft = 8;
 const scoreBallDiameter = 10;
 const playerSize = 30;
 const playerJumpHeight = 9;
 const playerSpeed = 4;
 const timeOver = 30;
+const numberOfEnemyStages = 3;
 
 //Variables
 //Screen phase: start = Start screen, game = game screen, lose = lose screen, win = win screen
@@ -40,6 +41,7 @@ let savedFrameCount = 0;
 let highscore = 0;
 let scoreMulti = 1;
 let finalScoreMulti;
+let chosenSide;
 
 //Arrays
 //Enemy ball sprites
@@ -110,6 +112,8 @@ function setupPhases() {
 
         //Game timers
         secondTimer = 0;
+        chosenSide = round(random(0, 1));
+
 
     } else if (screenPhase == "lose") {
         //Delete previous sprites
@@ -166,7 +170,7 @@ function titleButtonSprite() {
     //Title Button
     titleButton = new Sprite(250, 100, 300, 50, 'n');
     titleButton.color = '#92a5f7';
-    titleButton.text = "Ball " +  "Rain";
+    titleButton.text = "Ball " + "Rain";
     titleButton.textSize = 30;
 }
 
@@ -214,7 +218,8 @@ function playerSprite() {
     //Player
     player = new Sprite(250, 250, playerSize, playerSize, 'd');
     player.image = (imgPlayerCat);
-    imgPlayerCat.resize(playerSize, playerSize);}
+    imgPlayerCat.resize(playerSize, playerSize);
+}
 
 function deletePlayerSprite() {
     player.remove();
@@ -319,10 +324,10 @@ function draw() {
     if (frameCount == savedFrameCount + 60) {
         secondTimer = secondTimer + 1;
         savedFrameCount = frameCount;
-    }
+    };
 
     if (secondTimer % 5 === 0) {
-        scoreMulti = secondTimer/10 + 1;
+        scoreMulti = secondTimer / 10 + 1;
     };
 
     //Screen Phases
@@ -344,30 +349,38 @@ function draw() {
             //Setup
             setupPhases();
             screenPhaseSetup = false;
-        }
+        };
 
         //Game screen
         keyboardMovement();
         enemyFunction();
         //Stages
-        enemyStage1();
-        enemyStage2();
-        enemyStage3();
+        for (i = 0; i < numberOfEnemyStages; i++) {
+            if (secondTimer <= timeOver / numberOfEnemyStages) {
+                enemyStage1();
+            };
+            if (secondTimer >= (timeOver / numberOfEnemyStages) + 2 && secondTimer <= (timeOver / numberOfEnemyStages) * 2) {
+                enemyStage2();
+            };
+            if (secondTimer >= ((timeOver / numberOfEnemyStages) * 2) - 5 && secondTimer <= (timeOver / numberOfEnemyStages) * 3) {
+                enemyStage3();
+            };
+        };
         timerFunction();
         scoreBallFunction();
 
         //Player skin
         if (globalScore >= 100) {
             player.image = (imgPlayerTabbyCat);
-            imgPlayerTabbyCat.resize(playerSize, playerSize );
-        }
+            imgPlayerTabbyCat.resize(playerSize, playerSize);
+        };
 
     } else if (screenPhase == "lose") {
         if (screenPhaseSetup == true) {
             //Setup
             setupPhases();
             screenPhaseSetup = false;
-        }
+        };
 
         //Lose screen
         textFont("fontBold");
@@ -389,7 +402,7 @@ function draw() {
             //Setup
             setupPhases();
             screenPhaseSetup = false;
-        }
+        };
 
         //Win screen
         textFont("fontBold");
@@ -406,7 +419,7 @@ function draw() {
         //Restart
         restartButtonFunction();
     };
-}
+};
 
 //Switching screens and screen phases
 function controlButtonFunction() {
@@ -419,7 +432,7 @@ function controlButtonFunction() {
         text("The score is the number of yellow balls times by the time survived", 250, 310);
         text("To move it is W, A, S, D, and hold W on walls to climb", 250, 330);
     };
-}
+};
 
 function startButtonFunction() {
     //Start button
@@ -431,7 +444,7 @@ function startButtonFunction() {
         secondTimer = 0;
         timerSurvived = 0;
     };
-}
+};
 
 function restartButtonFunction() {
     //Start button
@@ -445,7 +458,7 @@ function restartButtonFunction() {
         timerSurvived = 0;
         console.log("Restart");
     };
-}
+};
 
 //Movement and rotation with keyboard inputs
 function keyboardMovement() {
@@ -469,8 +482,8 @@ function keyboardMovement() {
     if (kb.pressing('w') && hitBoxGroup.colliding(player) || kb.pressing('arrowUp') && hitBoxGroup.colliding(player)) {
         // Set sprite's velocity to the up
         player.vel.y = -1 * playerJumpHeight;
-    }
-}
+    };
+};
 
 //Enemy actions
 function enemyFunction() {
@@ -479,62 +492,65 @@ function enemyFunction() {
         //Lose Game
         screenPhase = "lose";
         screenPhaseSetup = true;
-    }
-
-}
+    };
+};
 
 function enemyStage1() {
     //Enemy balls only come from the left
-    if (secondTimer <= timeOver / 3) {
-        //If the enemy goes off screen it respawns
-        for (i = 0; i < enemyBallSpriteArray.length; i++) {
-            if (enemyBallSpriteArray[i].y >= 500) {
-                enemyBallSpriteArray[i].y = random(-10, -1);
-                enemyBallSpriteArray[i].vel.y = random(minBallSpeed, maxBallSpeed);
-                enemyBallSpriteArray[i].x = random(25, 475);
-            }
-        }
-    }
-}
+    //If the enemy goes off screen it respawns
+    for (i = 0; i < enemyBallSpriteArray.length; i++) {
+        if (enemyBallSpriteArray[i].y >= 500) {
+            enemyBallSpriteArray[i].y = random(-75, -5);
+            enemyBallSpriteArray[i].vel.y = random(minBallSpeed, maxBallSpeed);
+            enemyBallSpriteArray[i].x = random(25, 475);
+        };
+    };
+};
 
 function enemyStage2() {
     //Enemy beams come down from above
-    if (secondTimer >= (timeOver / 3) + 2 && secondTimer <= (timeOver / 3) * 2) {
-        //Beam enemies
-        for (i = 0; i < enemyBeamSpriteArray.length; i++) {
-            //Setting the speed
-            if (enemyBeamSpriteArray[i].vel.y == 0) {
-                enemyBeamSpriteArray[i].vel.y = random(minBeamSpeed, maxBeamSpeed);
-            } else if (enemyBeamSpriteArray[i].vel.y >= 1 && enemyBeamSpriteArray[i].y >= 500) {
-                //Deleting the beam enemy
-                enemyBeamSpriteArray[i].remove();
-            }
-        }
-    }
-}
+    //Beam enemies
+    for (i = 0; i < enemyBeamSpriteArray.length; i++) {
+        //Setting the speed
+        if (enemyBeamSpriteArray[i].vel.y == 0) {
+            enemyBeamSpriteArray[i].vel.y = random(minBeamSpeed, maxBeamSpeed);
+        } else if (enemyBeamSpriteArray[i].vel.y >= 1 && enemyBeamSpriteArray[i].y >= 500) {
+            //Deleting the beam enemy
+            enemyBeamSpriteArray[i].remove();
+        };
+    };
+};
 
 
 function enemyStage3() {
     //Idea come from side??
-    if (secondTimer >= ((timeOver / 3) * 2) - 5 && secondTimer <= (timeOver / 3) * 3) {
-        //If the enemy goes off screen it respawns
+    //If the enemy goes off screen it respawns
+    //Spawn Left
+    if (chosenSide = 0) {
         for (i = 0; i < enemyBallSpriteArray.length; i++) {
             if (enemyBallSpriteArray[i].x >= 500 || enemyBallSpriteArray[i].y >= 500) {
-                enemyBallSpriteArray[i].x = random(-25, -5);
+                enemyBallSpriteArray[i].x = random(-100, -5);
                 enemyBallSpriteArray[i].vel.x = random(minBallSpeed, maxBallSpeed);
                 enemyBallSpriteArray[i].vel.y = random(1, 2);
                 enemyBallSpriteArray[i].y = random(30, 510);
-            }
-        }
-    } else if (secondTimer >= timeOver) {
-        //When time runs out
-        for (i = 0; i < enemyBallSpriteArray.length; i++) {
-            if (enemyBallSpriteArray[i].x >= 500) {
+            } else if (enemyBallSpriteArray[i].x >= 500 && secondTimer >= timeOver) {
                 enemyBallSpriteArray[i].remove();
-            }
-        }
-    }
-}
+            };
+        };
+    //Spawn Right
+    } else if (chosenSide = 1) {
+        for (i = 0; i < enemyBallSpriteArray.length; i++) {
+            if (enemyBallSpriteArray[i].x <= 0 || enemyBallSpriteArray[i].y >= 500) {
+                enemyBallSpriteArray[i].x = random(505, 600);
+                enemyBallSpriteArray[i].vel.x = random(minBallSpeed, maxBallSpeed) * -1;
+                enemyBallSpriteArray[i].vel.y = random(1, 2);
+                enemyBallSpriteArray[i].y = random(30, 510);
+            } else if (enemyBallSpriteArray[i].x <= 0 && secondTimer >= timeOver) {
+                enemyBallSpriteArray[i].remove();
+            };
+        };
+    };
+};
 
 //Timer funciton
 function timerFunction() {
@@ -543,8 +559,8 @@ function timerFunction() {
         //Win Game
         screenPhase = "win";
         screenPhaseSetup = true;
-    }
-}
+    };
+};
 
 function scoreBallFunction() {
     //If player collects a score ball
@@ -554,8 +570,8 @@ function scoreBallFunction() {
             //Moves scoreball
             scoreBallSpriteArray[i].x = random(50, 450);
             scoreBallSpriteArray[i].y = random(50, 450);
-        }
-    }
+        };
+    };
 };
 
 /******************************************************/
