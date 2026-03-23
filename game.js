@@ -46,18 +46,12 @@ let enemyBeamSpriteArray = [];
 //Score balls
 let scoreBallSpriteArray = [];
 
-//Timers
-//Second timer
-/*
-let intervalID = setInterval(() => {
-    secondTimer = secondTimer + 1;
-}, 1000); //1000 ms timer */
 
 function preload() {
     //Loading the images for assets
     imgSnowBall = loadImage('assets/images/Snowball.png');
     imgBackground = loadImage('assets/images/Background.png');
-    imgPlayerCat = loadImage('assets/images/tester.png');
+    imgPlayerCat = loadImage('assets/images/Cat.png');
     imgPlayerTabbyCat = loadImage('assets/images/TabbyCat.png');
 
 }
