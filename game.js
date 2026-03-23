@@ -38,6 +38,8 @@ let restarted = false;
 let globalScore = 0;
 let savedFrameCount = 0;
 let highscore = 0;
+let scoreMulti = 1;
+let finalScoreMulti;
 
 //Arrays
 //Enemy ball sprites
@@ -122,7 +124,8 @@ function setupPhases() {
 
         //Set final score
         timerSurvived = secondTimer;
-        playerScore = + scoreBallsCollected * secondTimer;
+        finalScoreMulti = scoreMulti;
+        playerScore = + scoreBallsCollected * finalScoreMulti;
         globalScore = globalScore + playerScore;
         //Set highscore
         if (highscore < playerScore) {
@@ -309,6 +312,7 @@ function draw() {
     //text("Mouse Y " + round(mouse.y), 10, 40);
     text("Score balls collected: " + scoreBallsCollected, 10, 20);
     text("Timer " + secondTimer, 220, 20);
+    text("Multi " + scoreMulti, 350, 20);
     text("Highscore: " + highscore, 10, 40);
 
     //Timer
@@ -316,6 +320,10 @@ function draw() {
         secondTimer = secondTimer + 1;
         savedFrameCount = frameCount;
     }
+
+    if (secondTimer % 5 === 0) {
+        scoreMulti = secondTimer/10 + 1;
+    };
 
     //Screen Phases
     //What happens when the screen phases switch, what is deleted, what functions are drawn
