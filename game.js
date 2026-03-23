@@ -292,7 +292,7 @@ function scoreBallSprite() {
     //Score balls
     for (i = 0; i < numberOfScoreBallsLeft; i++) {
         scoreBall = new Sprite(random(50, 450), random(50, 450), 10, 'k');
-        scoreBall.color = '#d7ff26';
+        scoreBall.image = "⭐";
         scoreBall.strokeWeight = 0;
         scoreBallSpriteArray.push(scoreBall);
         scoreBallGroup.add(scoreBall);
@@ -315,7 +315,7 @@ function draw() {
     textAlign("left");
     //text("Mouse X " + round(mouse.x), 10, 20);
     //text("Mouse Y " + round(mouse.y), 10, 40);
-    text("Score balls collected: " + scoreBallsCollected, 10, 20);
+    text("Stars collected: " + scoreBallsCollected, 10, 20);
     if (screenPhase == "game") {
         text("Timer " + secondTimer, 220, 20);
     } else {
