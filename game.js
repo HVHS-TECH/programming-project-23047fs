@@ -302,14 +302,14 @@ function draw() {
     background(imgBackground);
 
     //Visual Variables
-    textSize(15);
+    textSize(20);
     textFont("fontBold");
     textAlign("left");
     //text("Mouse X " + round(mouse.x), 10, 20);
     //text("Mouse Y " + round(mouse.y), 10, 40);
-    text("Score ball collected: " + scoreBallsCollected, 10, 20);
+    text("Score balls collected: " + scoreBallsCollected, 10, 20);
+    text("Timer " + secondTimer, 220, 20);
     text("Highscore: " + highscore, 10, 40);
-    text("Timer " + secondTimer, 10, 60);
 
     //Timer
     if (frameCount == savedFrameCount + 60) {
@@ -325,8 +325,10 @@ function draw() {
         startButtonFunction();
 
         //Texts
+        textSize(15);
         textFont("fontBold");
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
+        textSize(20);
 
     } else if (screenPhase == "game") {
         //One time setup of sprites
@@ -366,8 +368,10 @@ function draw() {
         text("You survived: " + timerSurvived + " seconds", 250, 180);
         text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
         text("You have scored: " + playerScore, 250, 220);
+        textSize(15);
         textAlign("left");
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
+        textSize(20);
 
         //Restart
         restartButtonFunction();
@@ -386,8 +390,10 @@ function draw() {
         text("You survived: " + timerSurvived + " seconds", 250, 180);
         text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
         text("You have scored: " + playerScore, 250, 220);
+        textSize(15);
         textAlign("left");
         text("Credits Background by Dreamy Pixel. licensed under CC-BY 4.0", 10, 480);
+        textSize(20);
 
         //Restart
         restartButtonFunction();
