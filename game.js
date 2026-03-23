@@ -324,7 +324,7 @@ function draw() {
     if (screenPhase == "game") {
         text("Score Multiplier " + scoreMulti, 350, 20);
     } else {
-        text("Multi " + finalScoreMulti, 350, 20);
+        text("Score Multiplier " + finalScoreMulti, 350, 20);
     };
     text("Highscore: " + highscore, 10, 40);
 
