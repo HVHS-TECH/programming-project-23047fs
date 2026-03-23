@@ -316,8 +316,16 @@ function draw() {
     //text("Mouse X " + round(mouse.x), 10, 20);
     //text("Mouse Y " + round(mouse.y), 10, 40);
     text("Score balls collected: " + scoreBallsCollected, 10, 20);
-    text("Timer " + secondTimer, 220, 20);
-    text("Multi " + scoreMulti, 350, 20);
+    if (screenPhase == "game") {
+        text("Timer " + secondTimer, 220, 20);
+    } else {
+        text("Timer " + timerSurvived, 220, 20);
+    };
+    if (screenPhase == "game") {
+        text("Multi " + scoreMulti, 350, 20);
+    } else {
+        text("Multi " + finalScoreMulti, 350, 20);
+    };
     text("Highscore: " + highscore, 10, 40);
 
     //Timer
