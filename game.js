@@ -40,7 +40,7 @@ let globalScore = 0;
 let savedFrameCount = 0;
 let highscore = 0;
 let scoreMulti = 1;
-let finalScoreMulti;
+let finalScoreMulti = 1;
 let chosenSide;
 
 //Arrays
@@ -129,7 +129,7 @@ function setupPhases() {
         //Set final score
         timerSurvived = secondTimer;
         finalScoreMulti = scoreMulti;
-        playerScore = + scoreBallsCollected * finalScoreMulti;
+        playerScore = scoreBallsCollected * finalScoreMulti;
         globalScore = globalScore + playerScore;
         //Set highscore
         if (highscore < playerScore) {
@@ -152,7 +152,8 @@ function setupPhases() {
 
         //Set final score and time
         timerSurvived = secondTimer;
-        playerScore = + scoreBallsCollected * secondTimer;
+        finalScoreMulti = scoreMulti;
+        playerScore = scoreBallsCollected * finalScoreMulti;
         globalScore = globalScore + playerScore;
         //Set highscore
         if (highscore < playerScore) {
@@ -281,7 +282,6 @@ function enemySprite() {
             enemyGroup.add(enemyBeamUp);
         };
     };
-
 }
 
 function deleteEnemySprite() {
@@ -297,7 +297,7 @@ function scoreBallSprite() {
         scoreBallSpriteArray.push(scoreBall);
         scoreBallGroup.add(scoreBall);
     }
-};
+}
 
 function deleteScoreBallSprite() {
     scoreBallGroup.deleteAll();
@@ -317,14 +317,14 @@ function draw() {
     //text("Mouse Y " + round(mouse.y), 10, 40);
     text("Stars collected: " + scoreBallsCollected, 10, 20);
     if (screenPhase == "game") {
-        text("Timer " + secondTimer, 220, 20);
+        text("Timer " + secondTimer, 180, 20);
     } else {
-        text("Timer " + timerSurvived, 220, 20);
+        text("Timer " + timerSurvived, 180, 20);
     };
     if (screenPhase == "game") {
-        text("Score Multiplier " + scoreMulti, 350, 20);
+        text("Score Multiplier " + scoreMulti, 300, 20);
     } else {
-        text("Score Multiplier " + finalScoreMulti, 350, 20);
+        text("Score Multiplier " + finalScoreMulti, 300, 20);
     };
     text("Highscore: " + highscore, 10, 40);
 
@@ -397,7 +397,7 @@ function draw() {
         textSize(18);
         text("You have lost the game", 250, 150);
         text("You survived: " + timerSurvived + " seconds", 250, 175);
-        text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
+        text("You collected: " + scoreBallsCollected + " stars", 250, 200);
         textFont("Ultra");
         textSize(25);
         text("You have scored: " + playerScore, 245, 230);
@@ -422,10 +422,10 @@ function draw() {
         textAlign("center")
         text("Wow you have won the game", 250, 160);
         text("You survived: " + timerSurvived + " seconds", 250, 180);
-        text("You collected: " + scoreBallsCollected + " score balls", 250, 200);
+        text("You collected: " + scoreBallsCollected + " stars", 250, 200);
         textFont("Ultra");
         textSize(25);
-        text("You have scored: " + playerScore, 250, 220);
+        text("You have scored: " + playerScore, 245, 230);
         textFont("fontBold");
         textSize(15);
         textAlign("left");
