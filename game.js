@@ -313,20 +313,23 @@ function draw() {
     textSize(20);
     textFont("fontBold");
     textAlign("left");
-    //text("Mouse X " + round(mouse.x), 10, 20);
-    //text("Mouse Y " + round(mouse.y), 10, 40);
-    text("Stars collected: " + scoreBallsCollected, 10, 20);
-    if (screenPhase == "game") {
-        text("Timer " + secondTimer, 180, 20);
+    if (kb.pressing("z")) {
+        text("Mouse X " + round(mouse.x), 10, 20);
+        text("Mouse Y " + round(mouse.y), 10, 40);  
     } else {
-        text("Timer " + timerSurvived, 180, 20);
+        text("Stars collected: " + scoreBallsCollected, 10, 20);
+        if (screenPhase == "game") {
+            text("Timer " + secondTimer, 180, 20);
+        } else {
+            text("Timer " + timerSurvived, 180, 20);
+        };
+        if (screenPhase == "game") {
+            text("Score Multiplier " + scoreMulti, 300, 20);
+        } else {
+            text("Score Multiplier " + finalScoreMulti, 300, 20);
+        };
+        text("Highscore: " + highscore, 10, 40);
     };
-    if (screenPhase == "game") {
-        text("Score Multiplier " + scoreMulti, 300, 20);
-    } else {
-        text("Score Multiplier " + finalScoreMulti, 300, 20);
-    };
-    text("Highscore: " + highscore, 10, 40);
 
     //Timer
     if (frameCount == savedFrameCount + 60) {
@@ -362,7 +365,10 @@ function draw() {
 
         //Game screen
         keyboardMovement();
-        enemyFunction();
+        enemyFunction();  
+        timerFunction();
+        scoreBallFunction();
+
         //Stages
         for (i = 0; i < numberOfEnemyStages; i++) {
             if (secondTimer <= timeOver / numberOfEnemyStages) {
@@ -374,9 +380,7 @@ function draw() {
             if (secondTimer >= ((timeOver / numberOfEnemyStages) * 2) - 5 && secondTimer <= (timeOver / numberOfEnemyStages) * 3) {
                 enemyStage3();
             };
-        };
-        timerFunction();
-        scoreBallFunction();
+        }
 
         //Player skin
         if (globalScore >= 100) {
@@ -443,10 +447,11 @@ function controlButtonFunction() {
     if (kb.pressing('c')) {
         textFont("fontBold");
         textAlign("center");
-        text("Collect as many yellow balls", 250, 270);
-        text("Dodge the snowballs", 250, 290);
-        text("The score is the number of yellow balls times by the time survived", 250, 310);
-        text("To move it is W, A, S, D, and hold W on walls to climb", 250, 330);
+        textSize(18);
+        text("Collect as many yellow balls", 250, 370);
+        text("Dodge the snowballs", 250, 390);
+        text("The score is the number of yellow balls times by the time survived", 250, 410);
+        text("To move it is W, A, S, D, and hold W on walls to climb", 250, 430);
     };
 };
 
