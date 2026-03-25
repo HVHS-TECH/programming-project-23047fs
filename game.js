@@ -259,7 +259,7 @@ function deleteWallSprite() {
 function enemySprite() {
     //Enemy balls
     for (i = 0; i < numberOfEnemyBallsUp; i++) {
-        enemyBallUp = new Sprite(random(25, 475), random(-40, 0), enemyBallDiameter, 'k');
+        enemyBallUp = new Sprite(random(25, 475), random(-200, -10), enemyBallDiameter, 'k');
         enemyBallUp.image = (imgSnowBall);
         imgSnowBall.resize(enemyBallDiameter, enemyBallDiameter);
         enemyBallUp.strokeWeight = 0;
