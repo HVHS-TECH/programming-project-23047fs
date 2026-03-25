@@ -448,10 +448,10 @@ function controlButtonFunction() {
         textFont("fontBold");
         textAlign("center");
         textSize(18);
-        text("Collect as many yellow balls", 250, 370);
+        text("Collect as many yellow stars", 250, 370);
         text("Dodge the snowballs", 250, 390);
-        text("The score is the number of yellow balls times by the time survived", 250, 410);
-        text("To move it is W, A, S, D, and hold W on walls to climb", 250, 430);
+        text("The score is the number of yellow stars times by the time survived", 250, 410);
+        text("To move it is W, A, S, D, and hold W on the walls and roof to climb", 250, 430);
     };
 };
 
