@@ -17,7 +17,7 @@ const maxBallSpeed = 4;
 const minBeamSpeed = 3;
 const maxBeamSpeed = 5;
 const numberOfScoreBallsLeft = 8;
-const scoreBallDiameter = 10;
+const scoreBallDiameter = 15;
 const playerSize = 30;
 const playerJumpHeight = 9;
 const playerSpeed = 4;
@@ -292,7 +292,7 @@ function deleteEnemySprite() {
 function scoreBallSprite() {
     //Score balls
     for (i = 0; i < numberOfScoreBallsLeft; i++) {
-        scoreBall = new Sprite(random(50, 450), random(50, 450), 10, 'k');
+        scoreBall = new Sprite(random(50, 450), random(50, 450), scoreBallDiameter, 'k');
         scoreBall.image = "⭐";
         scoreBall.strokeWeight = 0;
         scoreBallSpriteArray.push(scoreBall);
