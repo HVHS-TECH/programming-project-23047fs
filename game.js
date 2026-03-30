@@ -39,11 +39,9 @@ let highscore = 0;
 let scoreMulti = 1;
 let finalScoreMulti = 1;
 let chosenSide;
-let endless = false;
 let numberOfEnemyBallsUp = 7;
 let numberOfEnemyBeamsUp = 5;
 let numberOfEnemiesInBeamsUp = 15;
-let stage = 1;
 
 //Arrays
 //Enemy ball sprites
@@ -473,7 +471,6 @@ function controlButtonFunction() {
 function startButtonFunction() {
     //Start button
     if (kb.presses('space')) {
-        endless = false;
         screenPhase = "game"
         screenPhaseSetup = true;
         scoreBallsCollected = 0;
@@ -486,7 +483,6 @@ function startButtonFunction() {
 function restartButtonFunction() {
     //Start button
     if (kb.presses('space')) {
-        endless = false;
         screenPhase = "game"
         screenPhaseSetup = true;
         restarted = true;
